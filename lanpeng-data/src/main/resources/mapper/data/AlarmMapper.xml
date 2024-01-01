@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanpeng.data.mapper.AlarmMapper">
+
+    <resultMap type="AlarmE" id="AlarmEResult">
+        <id     property="id"                    column="alarm_id" />
+        <result property="alarmRuleVersion"      column="alarm_alarmruleversion" />
+        <result property="object"                column="alarm_object" />
+        <result property="level"                 column="alarm_level" />
+        <result property="content"               column="alarm_content" />
+        <result property="status"                column="status" />
+        <result property="occurTime"             column="occur_time" />
+        <result property="acknowledgeBy"         column="acknowledge_by" />
+        <result property="acknowledgeTime"       column="acknowledge_time" />
+        <result property="clearBy"               column="clear_by" />
+        <result property="clearTime"             column="clear_time" />
+        <result property="closeBy"               column="close_by"     />
+        <result property="closeTime"             column="colse_time"     />
+        <association property="alarmRule"        javaType="AlarmRuleE"   resultMap="AAlarmRuleEResult" />
+    </resultMap>
+
+    <resultMap type="AlarmRuleE" id="AAlarmRuleEResult">
+        <id     property="id"                    column="alarmrule_id" />
+        <result property="code"                  column="alarmrule_code" />
+        <result property="version"               column="alarmrule_version" />
+        <result property="dataItemCode"          column="alarmrule_dataitemcode" />
+        <result property="dataItemType"          column="alarmrule_dataitemtype" />
+        <result property="operator"              column="alarmrule_operator" />
+        <result property="operator1"             column="alarmrule_operator1" />
+        <result property="operator2"             column="alarmrule_operator2" />
+        <result property="continuousTime"        column="alarmrule_continuoustime" />
+        <result property="level"                 column="alarmrule_level" />
+        <result property="description"           column="alarmrule_description" />
+        <association property="dataItem"         javaType="DataItemE"   resultMap="ADataItemEResult" />
+    </resultMap>
+
+    <resultMap type="DataItemE" id="ADataItemEResult">
+        <id     property="id"           column="dataitem_id"  />
+        <result property="code"         column="dataitem_code"/>
+        <result property="name"         column="dataitem_name"/>
+        <result property="type"         column="dataitem_type"/>
+        <result property="description"  column="dataitem_description"/>
+        <association property="module"  javaType="ModuleE"   resultMap="AModuleEResult"/>
+    </resultMap>
+
+    <resultMap type="ModuleE" id="AModuleEResult">
+        <id     property="id"           column="module_id"/>
+        <result property="name"         column="module_name"/>
+    </resultMap>
+
+    <sql id="selectAlarmVo">
+        select a.alarm_id, a.alarm_alarmruleversion, a.alarm_object,a.alarm_level,a.alarm_content,a.status,
+               a.occur_time,a.acknowledge_by,a.acknowledge_time,a.clear_by,a.clear_time,
+               a.close_by,a.colse_time,
+               ar.alarmrule_id,ar.alarmrule_code,ar.alarmrule_version,ar.alarmrule_dataitemcode,ar.alarmrule_dataitemtype,
+               ar.alarmrule_operator,ar.alarmrule_operator1,ar.alarmrule_operator2,ar.alarmrule_continuoustime,
+               ar.alarmrule_level,ar.alarmrule_description,
+               di.dataitem_id,di.dataitem_code,di.dataitem_name,di.dataitem_type,di.dataitem_description,
+               m.module_id,m.module_name
+        from alarm a
+                 left join alarmrule ar on a.alarm_alarmruleid = ar.alarmrule_id
+                 left join dataitem di on ar.alarmrule_dataitemid = di.dataitem_id
+                 left join module m on di.dataitem_moduleid = m.module_id
+    </sql>
+
+    <select id="selectAlarmList" parameterType="AlarmConditionE" resultMap="AlarmEResult">
+        <include refid="selectAlarmVo"/>
+        where
+        <if test="ac.status != null and ac.status != ''"> a.status=#{ac.status} and </if>
+        <if test="ac.level != null"> a.alarm_level=#{ac.level} and </if>
+        <if test="ac.startTime != null"> a.occur_time<![CDATA[ >= ]]>#{ac.startTime} and </if>
+        <if test="ac.stopTime != null"> a.occur_time<![CDATA[ <= ]]>#{ac.stopTime} and </if>
+        1=1
+    </select>
+
+    <insert id="insertAlarm" parameterType="AlarmE">
+        insert into alarm (alarm_alarmruleid,alarm_alarmruleversion,alarm_object,alarm_level,alarm_content,occur_time
+        )values(#{a.alarmRule.id},#{a.alarmRuleVersion},#{a.object},#{a.level},#{a.content},sysdate())
+    </insert>
+
+    <update id="changeAlarmStatus" parameterType="AlarmE">
+        update alarm
+        <set>
+            <if test='a.status == "1"'>acknowledge_time = sysdate(),status = #{a.status}</if>
+            <if test='a.status == "2"'>clear_time = sysdate(),status = #{a.status}</if>
+            <if test='a.status == "3"'>colse_time = sysdate(),status = #{a.status}</if>
+        </set>
+        where alarm_id = #{a.id}
+    </update>
+
+    <delete id="deleteAlarmById" parameterType="Long">
+        delete from alarm where alarm_id = #{aid}
+    </delete>
+
+</mapper>

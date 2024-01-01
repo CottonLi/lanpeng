@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanpeng.data.mapper.AlarmRuleMapper">
+
+    <resultMap type="AlarmRuleE" id="AlarmRuleEResult">
+        <id     property="id"                    column="alarmrule_id" />
+        <result property="code"                  column="alarmrule_code" />
+        <result property="version"               column="alarmrule_version" />
+        <result property="dataItemCode"          column="alarmrule_dataitemcode" />
+        <result property="dataItemType"          column="alarmrule_dataitemtype" />
+        <result property="operator"              column="alarmrule_operator" />
+        <result property="operator1"             column="alarmrule_operator1" />
+        <result property="operator2"             column="alarmrule_operator2" />
+        <result property="continuousTime"        column="alarmrule_continuoustime" />
+        <result property="level"                 column="alarmrule_level" />
+        <result property="description"           column="alarmrule_description" />
+        <result property="status"                column="status"     />
+        <result property="delFlag"               column="del_flag"     />
+        <result property="createBy"              column="create_by"    />
+        <result property="createTime"            column="create_time"  />
+        <result property="updateBy"              column="update_by"    />
+        <result property="updateTime"            column="update_time"  />
+        <result property="remark"                column="remark"       />
+        <association property="dataItem"         javaType="DataItemE"   resultMap="ARDataItemEResult" />
+    </resultMap>
+
+    <resultMap type="DataItemE" id="ARDataItemEResult">
+        <id     property="id"           column="dataitem_id"  />
+        <result property="code"         column="dataitem_code"/>
+        <result property="name"         column="dataitem_name"/>
+        <result property="type"         column="dataitem_type"/>
+        <result property="displayed"    column="dataitem_displayed"/>
+        <result property="description"  column="dataitem_description"/>
+        <association property="module"  javaType="ModuleE"   resultMap="ARModuleEResult"/>
+    </resultMap>
+
+    <resultMap type="ModuleE" id="ARModuleEResult">
+        <id     property="id"           column="module_id"/>
+        <result property="name"         column="module_name"/>
+    </resultMap>
+
+    <sql id="selectAlarmRuleVo">
+        select ar.alarmrule_id, ar.alarmrule_code, ar.alarmrule_version,ar.alarmrule_dataitemcode,ar.alarmrule_dataitemtype,ar.alarmrule_operator,
+               ar.alarmrule_operator1,ar.alarmrule_operator2,ar.alarmrule_continuoustime,ar.alarmrule_level,ar.alarmrule_description,
+               ar.status,ar.del_flag,ar.create_by, ar.create_time, ar.update_by, ar.update_time,ar.remark,
+               di.dataitem_id,di.dataitem_code,di.dataitem_name,di.dataitem_type,di.dataitem_displayed,di.dataitem_description,
+               m.module_id,m.module_name
+        from alarmrule ar
+                 left join dataitem di on ar.alarmrule_dataitemid = di.dataitem_id
+                 left join module m on di.dataitem_moduleid = m.module_id
+    </sql>
+
+    <select id="selectAlarmRuleList" resultMap="AlarmRuleEResult">
+        <include refid="selectAlarmRuleVo"/>
+        where ar.del_flag = '0'
+    </select>
+
+    <select id="selectAlarmRuleById" parameterType="Long" resultMap="AlarmRuleEResult">
+        <include refid="selectAlarmRuleVo"/>
+        where alarmrule_id = #{arid} and ar.del_flag = '0'
+    </select>
+
+    <insert id="insertAlarmRule" parameterType="AlarmRuleE">
+        insert into alarmrule (alarmrule_code,alarmrule_dataitemid,alarmrule_dataitemcode,alarmrule_dataitemtype,
+        alarmrule_operator,alarmrule_operator1,alarmrule_operator2,alarmrule_continuoustime,alarmrule_level,alarmrule_description,
+        <if test="ar.remark != null and ar.remark != ''">remark,</if>
+        <if test="ar.createBy != null and ar.createBy != ''">create_by,</if>
+        create_time
+        )values(#{ar.code},#{ar.dataItem.id},#{ar.dataItemCode},#{ar.dataItemType},#{ar.operator},#{ar.operator1},
+                #{ar.operator2},#{ar.continuousTime},#{ar.level},#{ar.description},
+        <if test="ar.remark != null and ar.remark != ''">#{ar.remark},</if>
+        <if test="ar.createBy != null and ar.createBy != ''">#{ar.createBy},</if>
+        sysdate()
+        )
+    </insert>
+
+    <update id="updateAlarmRule" parameterType="AlarmRuleE">
+        update alarmrule
+        <set>
+            alarmrule_code = #{ar.code},alarmrule_version = alarmrule_version + 1,alarmrule_dataitemid = #{ar.dataItem.id},
+            alarmrule_dataitemcode = #{ar.dataItemCode},alarmrule_dataitemtype = #{ar.dataItemType},
+            alarmrule_operator = #{ar.operator},alarmrule_operator1 = #{ar.operator1},alarmrule_operator2 = #{ar.operator2},
+            alarmrule_continuoustime = #{ar.continuousTime},alarmrule_level = #{ar.level},alarmrule_description = #{ar.description},
+            <if test="ar.updateBy != null and ar.updateBy != ''">update_by = #{ar.updateBy},</if>
+            <if test="ar.remark != null">remark = #{ar.remark},</if>
+            <if test="ar.status != null and ar.status != ''">status = #{ar.status},</if>
+            update_time = sysdate()
+        </set>
+        where alarmrule_id = #{ar.id}
+    </update>
+
+    <delete id="deleteAlarmRuleById" parameterType="Long">
+        update alarmrule set del_flag = '2' where alarmrule_id = #{arid}
+    </delete>
+
+</mapper>
