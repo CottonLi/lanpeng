@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanpeng.data.mapper.Role2DataItemMapper">
+
+    <resultMap type="RoleE" id="RoleEResult">
+        <result property="id"           column="role_id"      />
+        <result property="name"         column="role_name"   />
+    </resultMap>
+
+    <resultMap type="DataItemE" id="RDDataItemEResult">
+        <id     property="id"           column="dataitem_id"  />
+        <result property="code"         column="dataitem_code"/>
+        <result property="name"         column="dataitem_name"/>
+        <result property="type"         column="dataitem_type"/>
+        <result property="displayed"    column="dataitem_displayed"/>
+        <result property="description"  column="dataitem_description"/>
+        <result property="delFlag"      column="del_flag"     />
+        <result property="createBy"     column="create_by"    />
+        <result property="createTime"   column="create_time"  />
+        <result property="updateBy"     column="update_by"    />
+        <result property="updateTime"   column="update_time"  />
+        <result property="remark"       column="remark"       />
+        <association property="module"  javaType="ModuleE"   resultMap="RDModuleEResult"/>
+    </resultMap>
+
+    <resultMap type="ModuleE" id="RDModuleEResult">
+        <id     property="id"           column="module_id"/>
+        <result property="name"         column="module_name"/>
+    </resultMap>
+
+    <select id="getRolesByUserId" resultMap="RoleEResult">
+        select r.role_id,r.role_name
+        from sys_user_role ur
+                 left join sys_role r on ur.role_id = r.role_id
+        where ur.user_id = #{uid}
+    </select>
+
+    <select id="getDataItemsByRoleId" resultMap="RDDataItemEResult">
+        select di.dataitem_id,di.dataitem_code,di.dataitem_name,di.dataitem_type,di.dataitem_displayed,di.dataitem_description,
+               di.del_flag, di.create_by, di.create_time, di.update_by, di.update_time, di.remark,
+               mm.module_id,mm.module_name
+        from sys_role_dataitem rd
+                 left join dataitem di on rd.dataitemid = di.dataitem_id
+                 left join module mm on di.dataitem_moduleid = mm.module_id
+        where rd.roleid = #{rid} and di.del_flag = '0'
+    </select>
+
+    <insert id="addDataItem2Role">
+        insert into sys_role_dataitem (roleid,dataitemid)values(#{rid},#{diid})
+    </insert>
+
+    <insert id="addDataItems2Role">
+        insert into sys_role_dataitem (roleid,dataitemid)values
+        <foreach collection="diids" item="diid" separator=",">
+            (#{rid},#{diid})
+        </foreach>
+
+    </insert>
+
+    <delete id="deleteDataItemByRoleId" parameterType="Long">
+        delete from sys_role_dataitem where roleid = #{rid}
+    </delete>
+
+</mapper>
