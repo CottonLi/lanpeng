@@ -1,6 +1,6 @@
 package com.lanpeng.data.mapper;
 
-import com.lanpeng.data.domain.AlarmRuleE;
+import com.lanpeng.data.domain.AlarmRule;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -18,7 +18,7 @@ public interface AlarmRuleMapper
      *
      * @return 告警规则集合
      */
-    public List<AlarmRuleE> selectAlarmRuleList();
+    public List<AlarmRule> selectAlarmRuleList();
 
     /**
      * 按照告警规则编号查找告警规则
@@ -26,7 +26,7 @@ public interface AlarmRuleMapper
      * @param alarmRuleId 告警规则编号
      * @return 告警规则
      */
-    public AlarmRuleE selectAlarmRuleById(@Param("arid")Long alarmRuleId);
+    public AlarmRule selectAlarmRuleById(@Param("arid")Long alarmRuleId);
 
     /**
      * 添加告警规则
@@ -34,7 +34,7 @@ public interface AlarmRuleMapper
      * @param alarmRule 告警规则
      * @return 结果
      */
-    public int insertAlarmRule(@Param("ar")AlarmRuleE alarmRule);
+    public int insertAlarmRule(@Param("ar") AlarmRule alarmRule);
 
     /**
      * 更新告警规则
@@ -42,7 +42,7 @@ public interface AlarmRuleMapper
      * @param alarmRule 告警规则
      * @return 结果
      */
-    public int updateAlarmRule(@Param("ar")AlarmRuleE alarmRule);
+    public int updateAlarmRule(@Param("ar") AlarmRule alarmRule);
 
     /**
      * 根据告警编号删除告警规则

@@ -7,7 +7,7 @@ import com.lanpeng.common.core.domain.BaseEntity;
  *
  * @author liw
  */
-public class DBConnectionTypeE extends BaseEntity
+public class DBConnectionType extends BaseEntity
 {
     // 数据库连接类型编号
     private Long id;

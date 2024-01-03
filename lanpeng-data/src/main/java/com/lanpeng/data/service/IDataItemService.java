@@ -1,6 +1,6 @@
 package com.lanpeng.data.service;
 
-import com.lanpeng.data.domain.DataItemE;
+import com.lanpeng.data.domain.DataItem;
 import java.util.List;
 
 public interface IDataItemService
@@ -10,7 +10,7 @@ public interface IDataItemService
      *
      * @return 所有数据项
      */
-    public List<DataItemE> selectDataItemList();
+    public List<DataItem> selectDataItemList();
 
     /**
      * 根据数据项编号查询数据项内容
@@ -18,7 +18,7 @@ public interface IDataItemService
      * @param dataItemId 数据项编号
      * @return 数据项内容
      */
-    public DataItemE selectDataItemById(Long dataItemId);
+    public DataItem selectDataItemById(Long dataItemId);
 
     /**
      * 新增数据项
@@ -26,7 +26,7 @@ public interface IDataItemService
      * @param dataItem 数据项
      * @return 结果
      */
-    public int insertDataItem(DataItemE dataItem);
+    public int insertDataItem(DataItem dataItem);
 
     /**
      * 修改数据项
@@ -34,7 +34,7 @@ public interface IDataItemService
      * @param dataItem 数据项
      * @return 结果
      */
-    public int updateDataItem(DataItemE dataItem);
+    public int updateDataItem(DataItem dataItem);
 
     /**
      * 删除数据项

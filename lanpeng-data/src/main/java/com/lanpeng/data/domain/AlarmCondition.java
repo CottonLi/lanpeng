@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lanpeng.common.core.domain.BaseEntity;
 import java.util.Date;
 
-public class AlarmConditionE extends BaseEntity
+public class AlarmCondition extends BaseEntity
 {
     // 告警状态；0活动；1已确认；2已消除；3已关闭
     private String status;

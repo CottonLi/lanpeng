@@ -1,31 +1,32 @@
 package com.lanpeng.data.domain;
 
 import com.lanpeng.common.core.domain.BaseEntity;
-
 import java.util.List;
 
 /**
- * 数据存储表 datastorage
+ * 智能控制表 IntelligentControl
  *
  * @author liw
  */
-public class DataStorageE extends BaseEntity
+public class IntelligentControl extends BaseEntity
 {
     private Long id;
 
     private String name;
 
-    private ModuleE module;
+    private ModuleInfo moduleInfo;
+
+    private Integer ModuleInfoId;
 
     private String code;
 
     private String type;
 
-    private DBConnectionE dbconnection;
-
     private String description;
 
-    private List<DataStorageItemE> items;
+    private String parameter;
+
+    private List<IntelligentControlItem> items;
 
     /** 删除标志（0代表存在 2代表删除） */
     private String delFlag;
@@ -46,12 +47,20 @@ public class DataStorageE extends BaseEntity
         this.name = name;
     }
 
-    public ModuleE getModule() {
-        return module;
+    public ModuleInfo getModuleInfo() {
+        return moduleInfo;
     }
 
-    public void setModule(ModuleE module) {
-        this.module = module;
+    public void setModuleInfo(ModuleInfo moduleInfo) {
+        this.moduleInfo = moduleInfo;
+    }
+
+    public Integer getModuleInfoId() {
+        return ModuleInfoId;
+    }
+
+    public void setModuleInfoId(Integer moduleInfoId) {
+        ModuleInfoId = moduleInfoId;
     }
 
     public String getCode() {
@@ -70,14 +79,6 @@ public class DataStorageE extends BaseEntity
         this.type = type;
     }
 
-    public DBConnectionE getDbconnection() {
-        return dbconnection;
-    }
-
-    public void setDbconnection(DBConnectionE dbconnection) {
-        this.dbconnection = dbconnection;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -86,11 +87,19 @@ public class DataStorageE extends BaseEntity
         this.description = description;
     }
 
-    public List<DataStorageItemE> getItems() {
+    public String getParameter() {
+        return parameter;
+    }
+
+    public void setParameter(String parameter) {
+        this.parameter = parameter;
+    }
+
+    public List<IntelligentControlItem> getItems() {
         return items;
     }
 
-    public void setItems(List<DataStorageItemE> items) {
+    public void setItems(List<IntelligentControlItem> items) {
         this.items = items;
     }
 
@@ -104,14 +113,15 @@ public class DataStorageE extends BaseEntity
 
     @Override
     public String toString() {
-        return "DataStorageE{" +
+        return "IntelligentControl{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", module=" + module +
+                ", moduleInfo=" + moduleInfo +
+                ", ModuleInfoId=" + ModuleInfoId +
                 ", code='" + code + '\'' +
                 ", type='" + type + '\'' +
-                ", dbconnection=" + dbconnection +
                 ", description='" + description + '\'' +
+                ", parameter='" + parameter + '\'' +
                 ", items=" + items +
                 ", delFlag='" + delFlag + '\'' +
                 '}';

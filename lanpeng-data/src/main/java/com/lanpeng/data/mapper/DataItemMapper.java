@@ -1,6 +1,6 @@
 package com.lanpeng.data.mapper;
 
-import com.lanpeng.data.domain.DataItemE;
+import com.lanpeng.data.domain.DataItem;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
@@ -18,7 +18,7 @@ public interface DataItemMapper
      *
      * @return 所有数据项列表
      */
-    public List<DataItemE> selectDataItemList();
+    public List<DataItem> selectDataItemList();
 
     /**
      * 根据数据项编号查询数据项内容
@@ -26,7 +26,7 @@ public interface DataItemMapper
      * @param dataItemId 数据项编号
      * @return 数据项内容
      */
-    public DataItemE selectDataItemById(@Param("diid")Long dataItemId);
+    public DataItem selectDataItemById(@Param("diid")Long dataItemId);
 
     /**
      * 新增数据项
@@ -34,7 +34,7 @@ public interface DataItemMapper
      * @param dataItem 数据项
      * @return 结果
      */
-    public int insertDataItem(@Param("di")DataItemE dataItem);
+    public int insertDataItem(@Param("di") DataItem dataItem);
 
     /**
      * 修改数据项
@@ -42,7 +42,7 @@ public interface DataItemMapper
      * @param dataItem 数据信息
      * @return 结果
      */
-    public int updateDataItem(@Param("di")DataItemE dataItem);
+    public int updateDataItem(@Param("di") DataItem dataItem);
 
     /**
      * 删除数据项

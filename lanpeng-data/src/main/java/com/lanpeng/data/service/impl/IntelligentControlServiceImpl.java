@@ -1,7 +1,7 @@
 package com.lanpeng.data.service.impl;
 
-import com.lanpeng.data.domain.IntelligentControlE;
-import com.lanpeng.data.domain.IntelligentControlItemE;
+import com.lanpeng.data.domain.IntelligentControl;
+import com.lanpeng.data.domain.IntelligentControlItem;
 import com.lanpeng.data.mapper.IntelligentControlMapper;
 import com.lanpeng.data.service.IIntelligentControlService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class IntelligentControlServiceImpl implements IIntelligentControlService
      * @return 所有智能控制列表
      */
     @Override
-    public List<IntelligentControlE> selectAllIntelligentControls()
+    public List<IntelligentControl> selectAllIntelligentControls()
     {
         return intelligentControlMapper.selectAllIntelligentControls();
     }
@@ -33,7 +33,7 @@ public class IntelligentControlServiceImpl implements IIntelligentControlService
      * @return 所有智能控制列表
      */
     @Override
-    public List<IntelligentControlItemE> selectIntelligentControlItemsByIntelligentControlId(Long intelligentControlId)
+    public List<IntelligentControlItem> selectIntelligentControlItemsByIntelligentControlId(Long intelligentControlId)
     {
         return intelligentControlMapper.selectIntelligentControlItemByIntelligentControlId(intelligentControlId);
     }
@@ -45,7 +45,7 @@ public class IntelligentControlServiceImpl implements IIntelligentControlService
      * @return 结果
      */
     @Override
-    public int insertIntelligentControl(IntelligentControlE intelligentControl)
+    public int insertIntelligentControl(IntelligentControl intelligentControl)
     {
         return intelligentControlMapper.insertIntelligentControl(intelligentControl);
     }
@@ -57,7 +57,7 @@ public class IntelligentControlServiceImpl implements IIntelligentControlService
      * @return 结果
      */
     @Override
-    public int updateIntelligentControl(IntelligentControlE intelligentControl)
+    public int updateIntelligentControl(IntelligentControl intelligentControl)
     {
         return intelligentControlMapper.updateIntelligentControl(intelligentControl);
     }
@@ -82,7 +82,7 @@ public class IntelligentControlServiceImpl implements IIntelligentControlService
      * @return 结果
      */
     @Override
-    public int insertIntelligentControlItem(IntelligentControlItemE intelligentControlItem)
+    public int insertIntelligentControlItem(IntelligentControlItem intelligentControlItem)
     {
         return intelligentControlMapper.insertIntelligentControlItem(intelligentControlItem);
     }
@@ -94,7 +94,7 @@ public class IntelligentControlServiceImpl implements IIntelligentControlService
      * @return 结果
      */
     @Override
-    public int updateIntelligentControlItem(IntelligentControlItemE intelligentControlItem)
+    public int updateIntelligentControlItem(IntelligentControlItem intelligentControlItem)
     {
         return intelligentControlMapper.updateIntelligentControlItem(intelligentControlItem);
     }

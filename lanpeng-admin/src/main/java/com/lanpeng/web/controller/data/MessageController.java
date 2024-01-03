@@ -5,7 +5,7 @@ import com.lanpeng.common.core.controller.BaseController;
 import com.lanpeng.common.core.domain.AjaxResult;
 import com.lanpeng.common.core.page.TableDataInfo;
 import com.lanpeng.common.enums.BusinessType;
-import com.lanpeng.data.domain.MessageE;
+import com.lanpeng.data.domain.Message;
 import com.lanpeng.data.service.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -28,10 +28,10 @@ public class MessageController extends BaseController
      * 获取消息
      */
     @GetMapping("/list")
-    public TableDataInfo list(MessageE message)
+    public TableDataInfo list(Message message)
     {
         startPage();
-        List<MessageE> list = messageService.selectMessageList(message);
+        List<Message> list = messageService.selectMessageList(message);
         return getDataTable(list);
     }
 
@@ -49,7 +49,7 @@ public class MessageController extends BaseController
      */
     @Log(title = "消息", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@Validated @RequestBody MessageE message)
+    public AjaxResult add(@Validated @RequestBody Message message)
     {
         //message.setCreateBy(getUsername());
         return toAjax(messageService.insertMessage(message));
@@ -60,7 +60,7 @@ public class MessageController extends BaseController
      */
     @Log(title = "消息", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@Validated @RequestBody MessageE message)
+    public AjaxResult edit(@Validated @RequestBody Message message)
     {
         //message.setUpdateBy(getUsername());
         return toAjax(messageService.updateMessage(message));

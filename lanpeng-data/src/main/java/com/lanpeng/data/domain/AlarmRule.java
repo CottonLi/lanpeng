@@ -7,7 +7,7 @@ import com.lanpeng.common.core.domain.BaseEntity;
  *
  * @author liw
  */
-public class AlarmRuleE extends BaseEntity
+public class AlarmRule extends BaseEntity
 {
     // 告警规则ID
     private Long id;
@@ -19,7 +19,9 @@ public class AlarmRuleE extends BaseEntity
     private Integer version;
 
     // 告警规则所选择的数据项
-    private DataItemE dataItem;
+    private DataItem dataItem;
+
+    private Integer dataItemId;
 
     // 告警规则所选择的数据项标识符（提到外面来，不会随着数据项改变而改变,方便显示）
     private String dataItemCode;
@@ -75,12 +77,20 @@ public class AlarmRuleE extends BaseEntity
         this.version = version;
     }
 
-    public DataItemE getDataItem() {
+    public DataItem getDataItem() {
         return dataItem;
     }
 
-    public void setDataItem(DataItemE dataItem) {
+    public void setDataItem(DataItem dataItem) {
         this.dataItem = dataItem;
+    }
+
+    public Integer getDataItemId() {
+        return dataItemId;
+    }
+
+    public void setDataItemId(Integer dataItemId) {
+        this.dataItemId = dataItemId;
     }
 
     public String getDataItemCode() {
@@ -165,11 +175,12 @@ public class AlarmRuleE extends BaseEntity
 
     @Override
     public String toString() {
-        return "AlarmRuleE{" +
+        return "AlarmRule{" +
                 "id=" + id +
                 ", code='" + code + '\'' +
                 ", version=" + version +
                 ", dataItem=" + dataItem +
+                ", dataItemId=" + dataItemId +
                 ", dataItemCode='" + dataItemCode + '\'' +
                 ", dataItemType='" + dataItemType + '\'' +
                 ", operator='" + operator + '\'' +

@@ -1,6 +1,6 @@
 package com.lanpeng.data.service.impl;
 
-import com.lanpeng.data.domain.MessageE;
+import com.lanpeng.data.domain.Message;
 import com.lanpeng.data.mapper.MessageMapper;
 import com.lanpeng.data.service.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class MessageServiceImpl implements IMessageService
      * @return 消息
      */
     @Override
-    public MessageE selectMessageById(Long messageId)
+    public Message selectMessageById(Long messageId)
     {
         return messageMapper.selectMessageById(messageId);
     }
@@ -32,7 +32,7 @@ public class MessageServiceImpl implements IMessageService
      * @return 消息
      */
     @Override
-    public List<MessageE> selectMessageList(MessageE message)
+    public List<Message> selectMessageList(Message message)
     {
         return messageMapper.selectMessageList(message);
     }
@@ -44,7 +44,7 @@ public class MessageServiceImpl implements IMessageService
      * @return 结果
      */
     @Override
-    public int insertMessage(MessageE message)
+    public int insertMessage(Message message)
     {
         return messageMapper.insertMessage(message);
     }
@@ -56,7 +56,7 @@ public class MessageServiceImpl implements IMessageService
      * @return 结果
      */
     @Override
-    public int updateMessage(MessageE message)
+    public int updateMessage(Message message)
     {
         return messageMapper.updateMessage(message);
     }

@@ -4,10 +4,10 @@ import com.lanpeng.common.annotation.Log;
 import com.lanpeng.common.core.controller.BaseController;
 import com.lanpeng.common.core.domain.AjaxResult;
 import com.lanpeng.common.enums.BusinessType;
-import com.lanpeng.data.domain.DBConnectionE;
-import com.lanpeng.data.domain.DBConnectionTypeE;
-import com.lanpeng.data.domain.DataStorageE;
-import com.lanpeng.data.domain.DataStorageItemE;
+import com.lanpeng.data.domain.DBConnection;
+import com.lanpeng.data.domain.DBConnectionType;
+import com.lanpeng.data.domain.DataStorage;
+import com.lanpeng.data.domain.DataStorageItem;
 import com.lanpeng.data.service.IDataStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -32,7 +32,7 @@ public class DataStorageController extends BaseController
     @GetMapping("/dbconnectiontype/list")
     public AjaxResult dbconnectiontypelist()
     {
-        List<DBConnectionTypeE> items = dataStorageService.selectAllDBConnectionTypes();
+        List<DBConnectionType> items = dataStorageService.selectAllDBConnectionTypes();
         return success(items);
     }
 
@@ -42,7 +42,7 @@ public class DataStorageController extends BaseController
     @GetMapping("/dbconnection/list")
     public AjaxResult dbconnectionlist()
     {
-        List<DBConnectionE> items = dataStorageService.selectAllDBConnections();
+        List<DBConnection> items = dataStorageService.selectAllDBConnections();
         return success(items);
     }
 
@@ -52,7 +52,7 @@ public class DataStorageController extends BaseController
     @GetMapping("/list")
     public AjaxResult datastoragelist()
     {
-        List<DataStorageE> items = dataStorageService.selectAllDataStorages();
+        List<DataStorage> items = dataStorageService.selectAllDataStorages();
         return success(items);
     }
 
@@ -70,7 +70,7 @@ public class DataStorageController extends BaseController
      */
     @Log(title = "数据库连接管理", businessType = BusinessType.INSERT)
     @PostMapping("/dbconnection")
-    public AjaxResult adddbconnection(@Validated @RequestBody DBConnectionE dbconnection)
+    public AjaxResult adddbconnection(@Validated @RequestBody DBConnection dbconnection)
     {
         return toAjax(dataStorageService.insertDBConnection(dbconnection));
     }
@@ -80,7 +80,7 @@ public class DataStorageController extends BaseController
      */
     @Log(title = "数据库连接管理", businessType = BusinessType.UPDATE)
     @PutMapping("/dbconnection")
-    public AjaxResult editdbconnection(@Validated @RequestBody DBConnectionE dbconnection)
+    public AjaxResult editdbconnection(@Validated @RequestBody DBConnection dbconnection)
     {
         return toAjax(dataStorageService.updateDBConnection(dbconnection));
     }
@@ -100,7 +100,7 @@ public class DataStorageController extends BaseController
      */
     @Log(title = "数据存储管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult adddatastorage(@Validated @RequestBody DataStorageE dataStorage)
+    public AjaxResult adddatastorage(@Validated @RequestBody DataStorage dataStorage)
     {
         return toAjax(dataStorageService.insertDataStorage(dataStorage));
     }
@@ -110,7 +110,7 @@ public class DataStorageController extends BaseController
      */
     @Log(title = "数据存储管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult editdatastorage(@Validated @RequestBody DataStorageE dataStorage)
+    public AjaxResult editdatastorage(@Validated @RequestBody DataStorage dataStorage)
     {
         return toAjax(dataStorageService.updateDataStorage(dataStorage));
     }
@@ -130,7 +130,7 @@ public class DataStorageController extends BaseController
      */
     @Log(title = "数据存储管理", businessType = BusinessType.INSERT)
     @PostMapping("/item")
-    public AjaxResult adddatastorageitem(@Validated @RequestBody DataStorageItemE dataStorageItem)
+    public AjaxResult adddatastorageitem(@Validated @RequestBody DataStorageItem dataStorageItem)
     {
         return toAjax(dataStorageService.insertDataStorageItem(dataStorageItem));
     }
@@ -140,7 +140,7 @@ public class DataStorageController extends BaseController
      */
     @Log(title = "数据存储管理", businessType = BusinessType.UPDATE)
     @PutMapping("/item")
-    public AjaxResult editdatastorageitem(@Validated @RequestBody DataStorageItemE dataStorageItem)
+    public AjaxResult editdatastorageitem(@Validated @RequestBody DataStorageItem dataStorageItem)
     {
         return toAjax(dataStorageService.updateDataStorageItem(dataStorageItem));
     }

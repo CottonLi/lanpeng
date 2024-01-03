@@ -3,7 +3,7 @@ package com.lanpeng.web.controller.data;
 import com.lanpeng.common.annotation.Log;
 import com.lanpeng.common.core.controller.BaseController;
 import com.lanpeng.common.core.domain.AjaxResult;
-import com.lanpeng.data.domain.DataItemE;
+import com.lanpeng.data.domain.DataItem;
 import com.lanpeng.common.enums.BusinessType;
 import com.lanpeng.data.service.IDataItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class DataItemController extends BaseController
     @GetMapping("/list")
     public AjaxResult list()
     {
-        List<DataItemE> items = dataItemervice.selectDataItemList();
+        List<DataItem> items = dataItemervice.selectDataItemList();
         return success(items);
     }
 
@@ -48,7 +48,7 @@ public class DataItemController extends BaseController
      */
     @Log(title = "数据管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@Validated @RequestBody DataItemE dataItem)
+    public AjaxResult add(@Validated @RequestBody DataItem dataItem)
     {
         return toAjax(dataItemervice.insertDataItem(dataItem));
     }
@@ -58,7 +58,7 @@ public class DataItemController extends BaseController
      */
     @Log(title = "数据管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@Validated @RequestBody DataItemE dataItem)
+    public AjaxResult edit(@Validated @RequestBody DataItem dataItem)
     {
         return toAjax(dataItemervice.updateDataItem(dataItem));
     }

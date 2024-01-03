@@ -18,7 +18,7 @@ public interface IntelligentControlMapper
      *
      * @return 所有智能控制条目
      */
-    public List<IntelligentControlE> selectAllIntelligentControls();
+    public List<IntelligentControl> selectAllIntelligentControls();
 
     /**
      * 通过智能控制编号获取智能控制所有内容条目
@@ -26,7 +26,7 @@ public interface IntelligentControlMapper
      * @param intelligentControlId 智能控制编号
      * @return 所有智能控制内容条目
      */
-    public List<IntelligentControlItemE> selectIntelligentControlItemByIntelligentControlId(@Param("icid")Long intelligentControlId);
+    public List<IntelligentControlItem> selectIntelligentControlItemByIntelligentControlId(@Param("icid")Long intelligentControlId);
 
     /**
      * 新增智能控制
@@ -34,7 +34,7 @@ public interface IntelligentControlMapper
      * @param intelligentControl 智能控制
      * @return 结果
      */
-    public int insertIntelligentControl(@Param("ic")IntelligentControlE intelligentControl);
+    public int insertIntelligentControl(@Param("ic") IntelligentControl intelligentControl);
 
     /**
      * 修改智能控制
@@ -42,7 +42,7 @@ public interface IntelligentControlMapper
      * @param intelligentControl 智能控制
      * @return 结果
      */
-    public int updateIntelligentControl(@Param("ic")IntelligentControlE intelligentControl);
+    public int updateIntelligentControl(@Param("ic") IntelligentControl intelligentControl);
 
     /**
      * 删除智能控制
@@ -66,7 +66,7 @@ public interface IntelligentControlMapper
      * @param intelligentControlItem 智能控制条目
      * @return 结果
      */
-    public int insertIntelligentControlItem(@Param("ici")IntelligentControlItemE intelligentControlItem);
+    public int insertIntelligentControlItem(@Param("ici") IntelligentControlItem intelligentControlItem);
 
     /**
      * 修改智能控制条目
@@ -74,7 +74,7 @@ public interface IntelligentControlMapper
      * @param intelligentControlItem 智能控制条目
      * @return 结果
      */
-    public int updateIntelligentControlItem(@Param("ici")IntelligentControlItemE intelligentControlItem);
+    public int updateIntelligentControlItem(@Param("ici") IntelligentControlItem intelligentControlItem);
 
     /**
      * 删除智能控制条目

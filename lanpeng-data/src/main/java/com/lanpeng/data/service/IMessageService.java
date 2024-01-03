@@ -1,6 +1,6 @@
 package com.lanpeng.data.service;
 
-import com.lanpeng.data.domain.MessageE;
+import com.lanpeng.data.domain.Message;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public interface IMessageService
      * @param messageId 消息编号
      * @return 消息
      */
-    public MessageE selectMessageById(Long messageId);
+    public Message selectMessageById(Long messageId);
 
     /**
      * 查询消息
@@ -20,7 +20,7 @@ public interface IMessageService
      * @param message 消息
      * @return 消息集合
      */
-    public List<MessageE> selectMessageList(MessageE message);
+    public List<Message> selectMessageList(Message message);
 
     /**
      * 新增消息
@@ -28,7 +28,7 @@ public interface IMessageService
      * @param message 消息
      * @return 结果
      */
-    public int insertMessage(MessageE message);
+    public int insertMessage(Message message);
 
     /**
      * 修改消息
@@ -36,7 +36,7 @@ public interface IMessageService
      * @param message 消息
      * @return 结果
      */
-    public int updateMessage(MessageE message);
+    public int updateMessage(Message message);
 
     /**
      * 删除消息

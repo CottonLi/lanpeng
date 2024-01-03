@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
  *
  * @author liw
  */
-public class MessageE extends BaseEntity
+public class Message extends BaseEntity
 {
     /** 消息编号 */
     private Long id;

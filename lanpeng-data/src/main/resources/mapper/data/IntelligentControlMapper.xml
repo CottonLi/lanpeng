@@ -4,151 +4,161 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lanpeng.data.mapper.IntelligentControlMapper">
 
-    <resultMap type="IntelligentControlE" id="IntelligentControlEResult">
-        <id          property="id"               column="intelligentcontrol_id" />
-        <result      property="name"             column="intelligentcontrol_name" />
-        <result      property="code"             column="intelligentcontrol_code" />
-        <result      property="type"             column="intelligentcontrol_type" />
-        <result      property="description"      column="intelligentcontrol_description" />
-        <result      property="parameter"        column="intelligentcontrol_parameter" />
+    <resultMap type="IntelligentControl" id="IntelligentControlResult">
+        <id          property="id"               column="id" />
+        <result      property="name"             column="name" />
+        <result      property="ModuleInfoId"     column="ModuleInfoId" />
+        <result      property="code"             column="code" />
+        <result      property="type"             column="type" />
+        <result      property="description"      column="description" />
+        <result      property="parameter"        column="parameter" />
         <result      property="delFlag"          column="del_flag"     />
         <result      property="createBy"         column="create_by"    />
         <result      property="createTime"       column="create_time"  />
         <result      property="updateBy"         column="update_by"    />
         <result      property="updateTime"       column="update_time"  />
         <result      property="remark"           column="remark"       />
-        <association property="module"           javaType="ModuleE"   resultMap="ICModuleEFatherResult" />
-        <collection  property="items"            javaType="java.util.List"  resultMap="IntelligentControlItemEPartResult" />
+        <association property="moduleInfo"       javaType="ModuleInfo"   resultMap="ICModuleInfoResult" />
+        <collection  property="items"            javaType="java.util.List"  resultMap="IntelligentControlItemPartResult" />
     </resultMap>
 
-    <resultMap type="IntelligentControlItemE" id="IntelligentControlItemEAllResult">
-        <id     property="id"                    column="intelligentcontrolitem_id" />
-        <result property="intelligentControlId"  column="intelligentcontrolitem_intelligentcontrolid" />
-        <result property="length"                column="intelligentcontrolitem_length" />
-        <result property="description"           column="intelligentcontrolitem_description" />
-        <result property="interfaceParameter"    column="intelligentcontrolitem_interfaceparameter" />
+    <resultMap type="IntelligentControlItem" id="IntelligentControlItemAllResult">
+        <id     property="id"                    column="iciid" />
+        <result property="intelligentControlId"  column="intelligentControlId" />
+        <result property="dataItemId"            column="dataItemId" />
+        <result property="length"                column="length" />
+        <result property="description"           column="icidescription" />
+        <result property="interfaceParameter"    column="interfaceParameter" />
         <result property="delFlag"               column="del_flag"     />
         <result property="createBy"              column="create_by"    />
         <result property="createTime"            column="create_time"  />
         <result property="updateBy"              column="update_by"    />
         <result property="updateTime"            column="update_time"  />
         <result property="remark"                column="remark"       />
-        <association property="dataItem"         javaType="DataItemE"   resultMap="ICDataItemEResult" />
+        <association property="dataItem"         javaType="DataItem"   resultMap="ICDataItemResult" />
     </resultMap>
 
-    <resultMap type="IntelligentControlItemE" id="IntelligentControlItemEPartResult">
-        <id     property="id"                    column="intelligentcontrolitem_id" />
-        <result property="intelligentControlId"  column="intelligentcontrolitem_intelligentcontrolid" />
-        <result property="length"                column="intelligentcontrolitem_length" />
-        <result property="description"           column="intelligentcontrolitem_description" />
-        <result property="interfaceParameter"    column="intelligentcontrolitem_interfaceparameter" />
-        <association property="dataItem"         javaType="DataItemE"   resultMap="ICDataItemEResult" />
+    <resultMap type="IntelligentControlItem" id="IntelligentControlItemPartResult">
+        <id     property="id"                    column="iciid" />
+        <result property="intelligentControlId"  column="intelligentControlId" />
+        <result property="dataItemId"            column="dataItemId" />
+        <result property="length"                column="length" />
+        <result property="description"           column="icidescription" />
+        <result property="interfaceParameter"    column="interfaceParameter" />
+        <association property="dataItem"         javaType="DataItem"   resultMap="ICDataItemResult" />
     </resultMap>
 
-    <resultMap type="DataItemE" id="ICDataItemEResult">
-        <id     property="id"           column="dataitem_id"  />
-        <result property="code"         column="dataitem_code"/>
-        <result property="name"         column="dataitem_name"/>
-        <result property="type"         column="dataitem_type"/>
-        <result property="displayed"    column="dataitem_displayed"/>
-        <result property="description"  column="dataitem_description"/>
-        <association property="module"  javaType="ModuleE"   resultMap="ICModuleESonResult"/>
+    <resultMap type="DataItem" id="ICDataItemResult">
+        <id     property="id"             column="diid"  />
+        <result property="code"           column="dicode"/>
+        <result property="dataName"       column="dataName"/>
+        <result property="dataType"       column="dataType"/>
+        <result property="dataPrecision"  column="dataPrecision"/>
+        <result property="unit"           column="unit"/>
+        <result property="nodeType"       column="nodeType"/>
+        <result property="nodeId"         column="nodeId"/>
+        <result property="mappingField"   column="mappingField"/>
+        <result property="store_flag"     column="store_flag"/>
+        <result property="transfer_flag"  column="transfer_flag"/>
+        <result property="display_flag"   column="display_flag"/>
+        <result property="control_flag"   column="control_flag"/>
+        <result property="alarm_flag"     column="alarm_flag"/>
     </resultMap>
 
-    <resultMap type="ModuleE" id="ICModuleEFatherResult">
-        <id     property="id"             column="module_id"/>
-        <result property="name"           column="module_name"/>
+    <resultMap type="ModuleInfo" id="ICModuleInfoResult">
+        <id     property="id"                column="mid"/>
+        <result property="code"              column="mcode"/>
+        <result property="name"              column="mname"/>
+        <result property="model"             column="model"/>
+        <result property="type"              column="mtype"/>
+        <result property="description"       column="mdescription"/>
+        <result property="className"         column="className"/>
+        <result property="version"           column="version"/>
+        <result property="assemblyName"      column="assemblyName"/>
+        <result property="configFileName"    column="configFileName"/>
     </resultMap>
 
-    <resultMap type="ModuleE" id="ICModuleESonResult">
-        <id     property="id"             column="moduleson_id"/>
-        <result property="name"           column="moduleson_name"/>
-    </resultMap>
-
-    <select id="selectAllIntelligentControls" resultMap="IntelligentControlEResult">
-        select i.intelligentcontrol_id, i.intelligentcontrol_name, i.intelligentcontrol_code,i.intelligentcontrol_type,i.intelligentcontrol_description,i.intelligentcontrol_parameter,
+    <select id="selectAllIntelligentControls" resultMap="IntelligentControlResult">
+        select i.id, i.name,i.ModuleInfoId,i.code,i.type,i.description,i.parameter,
                i.del_flag, i.create_by, i.create_time, i.update_by, i.update_time, i.remark,
-               m.module_id,m.module_name,
-               ii.intelligentcontrolitem_id,ii.intelligentcontrolitem_intelligentcontrolid,ii.intelligentcontrolitem_length,ii.intelligentcontrolitem_description,ii.intelligentcontrolitem_interfaceparameter,
-               di.dataitem_id,di.dataitem_code,di.dataitem_name,di.dataitem_type,di.dataitem_displayed,di.dataitem_description,
-               mson.module_id as moduleson_id,mson.module_name as moduleson_name
+               m.id as mid,m.code as mcode,m.name as mname,m.model,m.type as mtype,m.description as mdescription,m.className,m.version,m.assemblyName,m.configFileName,
+               ii.id as iciid,ii.intelligentControlId,ii.dataItemId,ii.length,ii.description as icidescription,ii.interfaceParameter,
+               di.id as diid,di.code as dicode,di.dataName,di.dataType,di.dataPrecision,di.unit,di.nodeType,di.nodeId,di.mappingField,
+               di.store_flag,di.transfer_flag,di.display_flag,di.control_flag,di.alarm_flag
         from intelligentcontrol i
-                 left join module m on i.intelligentcontrol_moduleid = m.module_id
-                 left join intelligentcontrolitem ii on i.intelligentcontrol_id = ii.intelligentcontrolitem_intelligentcontrolid
-                 left join dataitem di on ii.intelligentcontrolitem_dataitemid = di.dataitem_id
-                 left join module mson on di.dataitem_moduleid = mson.module_id
+                 left join moduleinfo m on i.ModuleInfoId = m.id
+                 left join intelligentcontrolitem ii on i.id = ii.intelligentControlId and ii.del_flag = '0'
+                 left join dataitem di on ii.dataItemId = di.id
         where i.del_flag = '0'
     </select>
 
-    <select id="selectIntelligentControlItemByIntelligentControlId" resultMap="IntelligentControlItemEAllResult">
-        select ii.intelligentcontrolitem_id, ii.intelligentcontrolitem_intelligentcontrolid,ii.intelligentcontrolitem_length,ii.intelligentcontrolitem_description,ii.intelligentcontrolitem_interfaceparameter,
+    <select id="selectIntelligentControlItemByIntelligentControlId" resultMap="IntelligentControlItemAllResult">
+        select ii.id as iciid,ii.intelligentControlId,ii.dataItemId,ii.length,ii.description as icidescription,ii.interfaceParameter,
                ii.del_flag, ii.create_by, ii.create_time, ii.update_by, ii.update_time, ii.remark,
-               di.dataitem_id,di.dataitem_code,di.dataitem_name,di.dataitem_type,di.dataitem_displayed,di.dataitem_description,
-               mson.module_id as moduleson_id,mson.module_name as moduleson_name
+               di.id as diid,di.code as dicode,di.dataName,di.dataType,di.dataPrecision,di.unit,di.nodeType,di.nodeId,di.mappingField,
+               di.store_flag,di.transfer_flag,di.display_flag,di.control_flag,di.alarm_flag
         from intelligentcontrolitem ii
-                 left join dataitem di on ii.intelligentcontrolitem_dataitemid = di.dataitem_id
-                 left join module mson on di.dataitem_moduleid = mson.module_id
-        where ii.intelligentcontrolitem_intelligentcontrolid = #{icid} and ii.del_flag = '0'
+                 left join dataitem di on ii.dataItemId = di.id
+        where ii.intelligentControlId = #{icid} and ii.del_flag = '0'
     </select>
 
-    <insert id="insertIntelligentControl" parameterType="IntelligentControlE" useGeneratedKeys="true" keyProperty="id">
-        insert into intelligentcontrol(intelligentcontrol_name,intelligentcontrol_moduleid,intelligentcontrol_code,intelligentcontrol_type,
-                                       intelligentcontrol_parameter,intelligentcontrol_description,
+    <insert id="insertIntelligentControl" parameterType="IntelligentControl" useGeneratedKeys="true" keyProperty="id">
+        insert into intelligentcontrol(name,ModuleInfoId,code,type,parameter,description,
                                        <if test="ic.createBy != null and ic.createBy != ''">create_by,</if>
                                        <if test="ic.remark != null and ic.remark != ''">remark,</if>
                                        create_time)
-        values(#{ic.name},#{ic.module.id},#{ic.code},#{ic.type},#{ic.parameter},#{ic.description},
+        values(#{ic.name},#{ic.ModuleInfoId},#{ic.code},#{ic.type},#{ic.parameter},#{ic.description},
                <if test="ic.createBy != null and ic.createBy != ''">#{ic.createBy},</if>
                <if test="ic.remark != null and ic.remark != ''">#{ic.remark},</if>
                sysdate())
     </insert>
 
-    <update id="updateIntelligentControl" parameterType="IntelligentControlE">
+    <update id="updateIntelligentControl" parameterType="IntelligentControl">
         update intelligentcontrol
         <set>
-            intelligentcontrol_name = #{ic.name},intelligentcontrol_moduleid = #{ic.module.id},
-            intelligentcontrol_code = #{ic.code},intelligentcontrol_type = #{ic.type},
-            intelligentcontrol_parameter = #{ic.parameter},intelligentcontrol_description = #{ic.description},
+            name = #{ic.name},ModuleInfoId = #{ic.ModuleInfoId},
+            code = #{ic.code},type = #{ic.type},
+            parameter = #{ic.parameter},description = #{ic.description},
             <if test="ic.updateBy != null and ic.updateBy != ''">update_by = #{ic.updateBy},</if>
             <if test="ic.remark != null">remark = #{ic.remark},</if>
             update_time = sysdate()
         </set>
-        where intelligentcontrol_id = #{ic.id}
+        where id = #{ic.id}
     </update>
 
     <delete id="deleteIntelligentControlById" parameterType="Long">
-        update intelligentcontrol set del_flag = '2' where intelligentcontrol_id = #{icid}
+        update intelligentcontrol set del_flag = '2' where id = #{icid}
     </delete>
 
     <delete id="deleteIntelligentControlItemByIntelligentControlId" parameterType="Long">
-        update intelligentcontrolitem set del_flag = '2' where intelligentcontrolitem_intelligentcontrolid = #{icid}
+        update intelligentcontrolitem set del_flag = '2' where intelligentControlId = #{icid}
     </delete>
 
-    <insert id="insertIntelligentControlItem" parameterType="IntelligentControlItemE" useGeneratedKeys="true" keyProperty="id">
-        insert into intelligentcontrolitem(intelligentcontrolitem_intelligentcontrolid,intelligentcontrolitem_dataitemid,intelligentcontrolitem_length,intelligentcontrolitem_description,intelligentcontrolitem_interfaceparameter,
+    <insert id="insertIntelligentControlItem" parameterType="IntelligentControlItem" useGeneratedKeys="true" keyProperty="id">
+        insert into intelligentcontrolitem(intelligentControlId,dataItemId,length,description,interfaceParameter,
                                            <if test="ici.createBy != null and ici.createBy != ''">create_by,</if>
                                            <if test="ici.remark != null and ici.remark != ''">remark,</if>
                                            create_time)
-        values(#{ici.intelligentControlId},#{ici.dataItem.id},#{ici.length},#{ici.description},#{ici.interfaceParameter},
+        values(#{ici.intelligentControlId},#{ici.dataItemId},#{ici.length},#{ici.description},#{ici.interfaceParameter},
                <if test="ici.createBy != null and ici.createBy != ''">#{ici.createBy},</if>
                <if test="ici.remark != null and ici.remark != ''">#{ici.remark},</if>
                sysdate())
     </insert>
 
-    <update id="updateIntelligentControlItem" parameterType="IntelligentControlItemE">
+    <update id="updateIntelligentControlItem" parameterType="IntelligentControlItem">
         update intelligentcontrolitem
         <set>
-            intelligentcontrolitem_intelligentcontrolid = #{ici.intelligentControlId},intelligentcontrolitem_dataitemid = #{ici.dataItem.id},
-            intelligentcontrolitem_length = #{ici.length},intelligentcontrolitem_description = #{ici.description},intelligentcontrolitem_interfaceparameter = #{ici.interfaceParameter},
+            intelligentControlId = #{ici.intelligentControlId},dataItemId = #{ici.dataItemId},
+            length = #{ici.length},description = #{ici.description},interfaceParameter = #{ici.interfaceParameter},
             <if test="ici.updateBy != null and ici.updateBy != ''">update_by = #{ici.updateBy},</if>
             <if test="ici.remark != null">remark = #{ici.remark},</if>
             update_time = sysdate()
         </set>
-        where intelligentcontrolitem_id = #{ici.id}
+        where id = #{ici.id}
     </update>
 
     <delete id="deleteIntelligentControlItemById" parameterType="Long">
-        update intelligentcontrolitem set del_flag = '2' where intelligentcontrolitem_id = #{iciid}
+        update intelligentcontrolitem set del_flag = '2' where id = #{iciid}
     </delete>
 
 </mapper>

@@ -1,6 +1,6 @@
 package com.lanpeng.data.service.impl;
 
-import com.lanpeng.data.domain.DataItemE;
+import com.lanpeng.data.domain.DataItem;
 import com.lanpeng.data.mapper.DataItemMapper;
 import com.lanpeng.data.service.IDataItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class DataItemServiceImpl implements IDataItemService
      * @return 所有数据项
      */
     @Override
-    public List<DataItemE> selectDataItemList()
+    public List<DataItem> selectDataItemList()
     {
         return dataItemMapper.selectDataItemList();
     }
@@ -32,7 +32,7 @@ public class DataItemServiceImpl implements IDataItemService
      * @return 数据项内容
      */
     @Override
-    public DataItemE selectDataItemById(Long dataItemId)
+    public DataItem selectDataItemById(Long dataItemId)
     {
         return dataItemMapper.selectDataItemById(dataItemId);
     }
@@ -44,7 +44,7 @@ public class DataItemServiceImpl implements IDataItemService
      * @return 结果
      */
     @Override
-    public int insertDataItem(DataItemE dataItem)
+    public int insertDataItem(DataItem dataItem)
     {
         return dataItemMapper.insertDataItem(dataItem);
     }
@@ -56,7 +56,7 @@ public class DataItemServiceImpl implements IDataItemService
      * @return 结果
      */
     @Override
-    public int updateDataItem(DataItemE dataItem)
+    public int updateDataItem(DataItem dataItem)
     {
         return dataItemMapper.updateDataItem(dataItem);
     }

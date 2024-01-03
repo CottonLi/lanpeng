@@ -3,20 +3,17 @@ package com.lanpeng.data.domain;
 import com.lanpeng.common.core.domain.BaseEntity;
 
 /**
- * 组件表 module
+ * 角色表（我自己用的，就用俩字段，系统还有一个！） role
  *
  * @author liw
  */
-public class ModuleE extends BaseEntity
+public class Role extends BaseEntity
 {
-    // 组件编号
+    // 角色编号
     private Long id;
 
-    /** 组件名称 */
+    /** 角色名称 */
     private String name;
-
-    /** 删除标志（0代表存在 2代表删除） */
-    private String delFlag;
 
     public Long getId() {
         return id;
@@ -34,20 +31,11 @@ public class ModuleE extends BaseEntity
         this.name = name;
     }
 
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
-    }
-
     @Override
     public String toString() {
-        return "ModuleE{" +
+        return "RoleE{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", delFlag='" + delFlag + '\'' +
                 '}';
     }
 }

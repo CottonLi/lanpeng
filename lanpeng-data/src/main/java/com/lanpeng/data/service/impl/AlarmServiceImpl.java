@@ -1,8 +1,8 @@
 package com.lanpeng.data.service.impl;
 
-import com.lanpeng.data.domain.AlarmConditionE;
-import com.lanpeng.data.domain.AlarmE;
-import com.lanpeng.data.domain.AlarmRuleE;
+import com.lanpeng.data.domain.AlarmCondition;
+import com.lanpeng.data.domain.Alarm;
+import com.lanpeng.data.domain.AlarmRule;
 import com.lanpeng.data.mapper.AlarmMapper;
 import com.lanpeng.data.mapper.AlarmRuleMapper;
 import com.lanpeng.data.service.IAlarmService;
@@ -26,7 +26,7 @@ public class AlarmServiceImpl implements IAlarmService
      * @return 告警规则集合
      */
     @Override
-    public List<AlarmRuleE> selectAlarmRuleList()
+    public List<AlarmRule> selectAlarmRuleList()
     {
         return alarmRuleMapper.selectAlarmRuleList();
     }
@@ -38,7 +38,7 @@ public class AlarmServiceImpl implements IAlarmService
      * @return 告警规则
      */
     @Override
-    public AlarmRuleE selectAlarmRuleById(Long alarmRuleId)
+    public AlarmRule selectAlarmRuleById(Long alarmRuleId)
     {
         return alarmRuleMapper.selectAlarmRuleById(alarmRuleId);
     }
@@ -50,7 +50,7 @@ public class AlarmServiceImpl implements IAlarmService
      * @return 结果
      */
     @Override
-    public int insertAlarmRule(AlarmRuleE alarmRule)
+    public int insertAlarmRule(AlarmRule alarmRule)
     {
         return alarmRuleMapper.insertAlarmRule(alarmRule);
     }
@@ -62,7 +62,7 @@ public class AlarmServiceImpl implements IAlarmService
      * @return 结果
      */
     @Override
-    public int updateAlarmRule(AlarmRuleE alarmRule)
+    public int updateAlarmRule(AlarmRule alarmRule)
     {
         return alarmRuleMapper.updateAlarmRule(alarmRule);
     }
@@ -85,7 +85,7 @@ public class AlarmServiceImpl implements IAlarmService
      * @return 告警集合
      */
     @Override
-    public List<AlarmE> selectAlarmList(AlarmConditionE alarmCondition)
+    public List<Alarm> selectAlarmList(AlarmCondition alarmCondition)
     {
         return alarmMapper.selectAlarmList(alarmCondition);
     }
@@ -96,7 +96,7 @@ public class AlarmServiceImpl implements IAlarmService
      * @return 结果
      */
     @Override
-    public int insertAlarm(AlarmE alarm)
+    public int insertAlarm(Alarm alarm)
     {
         return alarmMapper.insertAlarm(alarm);
     }
@@ -107,7 +107,7 @@ public class AlarmServiceImpl implements IAlarmService
      * @return 结果
      */
     @Override
-    public int changeAlarmStatus(AlarmE alarm)
+    public int changeAlarmStatus(Alarm alarm)
     {
         return alarmMapper.changeAlarmStatus(alarm);
     }

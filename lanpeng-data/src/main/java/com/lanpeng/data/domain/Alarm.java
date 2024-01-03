@@ -9,13 +9,15 @@ import java.util.Date;
  *
  * @author liw
  */
-public class AlarmE extends BaseEntity
+public class Alarm extends BaseEntity
 {
     // 告警ID
     private Long id;
 
     // 告警所从属的报警规则
-    private AlarmRuleE alarmRule;
+    private AlarmRule alarmRule;
+
+    private Integer alarmRuleId;
 
     // 告警所使用的告警规则对应版本，即使规则升级了，这个字段也不会变
     private Integer alarmRuleVersion;
@@ -65,12 +67,20 @@ public class AlarmE extends BaseEntity
         this.id = id;
     }
 
-    public AlarmRuleE getAlarmRule() {
+    public AlarmRule getAlarmRule() {
         return alarmRule;
     }
 
-    public void setAlarmRule(AlarmRuleE alarmRule) {
+    public void setAlarmRule(AlarmRule alarmRule) {
         this.alarmRule = alarmRule;
+    }
+
+    public Integer getAlarmRuleId() {
+        return alarmRuleId;
+    }
+
+    public void setAlarmRuleId(Integer alarmRuleId) {
+        this.alarmRuleId = alarmRuleId;
     }
 
     public Integer getAlarmRuleVersion() {
@@ -171,9 +181,10 @@ public class AlarmE extends BaseEntity
 
     @Override
     public String toString() {
-        return "AlarmE{" +
+        return "Alarm{" +
                 "id=" + id +
                 ", alarmRule=" + alarmRule +
+                ", alarmRuleId=" + alarmRuleId +
                 ", alarmRuleVersion=" + alarmRuleVersion +
                 ", object='" + object + '\'' +
                 ", level=" + level +

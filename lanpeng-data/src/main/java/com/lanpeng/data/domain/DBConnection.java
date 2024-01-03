@@ -7,7 +7,7 @@ import com.lanpeng.common.core.domain.BaseEntity;
  *
  * @author liw
  */
-public class DBConnectionE extends BaseEntity
+public class DBConnection extends BaseEntity
 {
     // 数据库连接编号
     private Long id;
@@ -16,7 +16,9 @@ public class DBConnectionE extends BaseEntity
     private String name;
 
     // 数据库连接类型编号
-    private DBConnectionTypeE dbconnectionType;
+    private DBConnectionType dbconnectionType;
+
+    private Integer dbConnectionTypeId;
 
     // 数据库服务器名称
     private String serverName;
@@ -25,13 +27,13 @@ public class DBConnectionE extends BaseEntity
     private Integer serverPort;
 
     // 数据库服务器端口号
-    private String database;
+    private String databaseName;
 
     // 数据库连接用户名
     private String userName;
 
     // 数据库连接密码
-    private String password;
+    private String userPassword;
 
     /** 删除标志（0代表存在 2代表删除） */
     private String delFlag;
@@ -52,12 +54,20 @@ public class DBConnectionE extends BaseEntity
         this.name = name;
     }
 
-    public DBConnectionTypeE getDbconnectionType() {
+    public DBConnectionType getDbconnectionType() {
         return dbconnectionType;
     }
 
-    public void setDbconnectionType(DBConnectionTypeE dbconnectionType) {
+    public void setDbconnectionType(DBConnectionType dbconnectionType) {
         this.dbconnectionType = dbconnectionType;
+    }
+
+    public Integer getDbConnectionTypeId() {
+        return dbConnectionTypeId;
+    }
+
+    public void setDbConnectionTypeId(Integer dbConnectionTypeId) {
+        this.dbConnectionTypeId = dbConnectionTypeId;
     }
 
     public String getServerName() {
@@ -76,12 +86,12 @@ public class DBConnectionE extends BaseEntity
         this.serverPort = serverPort;
     }
 
-    public String getDatabase() {
-        return database;
+    public String getDatabaseName() {
+        return databaseName;
     }
 
-    public void setDatabase(String database) {
-        this.database = database;
+    public void setDatabaseName(String databaseName) {
+        this.databaseName = databaseName;
     }
 
     public String getUserName() {
@@ -92,12 +102,12 @@ public class DBConnectionE extends BaseEntity
         this.userName = userName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserPassword() {
+        return userPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
     public String getDelFlag() {
@@ -110,15 +120,16 @@ public class DBConnectionE extends BaseEntity
 
     @Override
     public String toString() {
-        return "DBConnectionE{" +
+        return "DBConnection{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", dbconnectionType=" + dbconnectionType +
+                ", dbConnectionTypeId=" + dbConnectionTypeId +
                 ", serverName='" + serverName + '\'' +
                 ", serverPort=" + serverPort +
-                ", database='" + database + '\'' +
+                ", databaseName='" + databaseName + '\'' +
                 ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
+                ", userPassword='" + userPassword + '\'' +
                 ", delFlag='" + delFlag + '\'' +
                 '}';
     }

@@ -15,7 +15,7 @@ public interface IIntelligentControlService
      *
      * @return 所有智能控制列表
      */
-    public List<IntelligentControlE> selectAllIntelligentControls();
+    public List<IntelligentControl> selectAllIntelligentControls();
 
     /**
      * 通过智能控制编号获取所有的智能控制条目
@@ -23,7 +23,7 @@ public interface IIntelligentControlService
      * @param intelligentControlId 智能控制编号
      * @return 所有智能控制列表
      */
-    public List<IntelligentControlItemE> selectIntelligentControlItemsByIntelligentControlId(Long intelligentControlId);
+    public List<IntelligentControlItem> selectIntelligentControlItemsByIntelligentControlId(Long intelligentControlId);
 
     /**
      * 新增智能控制
@@ -31,7 +31,7 @@ public interface IIntelligentControlService
      * @param intelligentControl 智能控制
      * @return 结果
      */
-    public int insertIntelligentControl(IntelligentControlE intelligentControl);
+    public int insertIntelligentControl(IntelligentControl intelligentControl);
 
     /**
      * 修改智能控制
@@ -39,7 +39,7 @@ public interface IIntelligentControlService
      * @param intelligentControl 智能控制
      * @return 结果
      */
-    public int updateIntelligentControl(IntelligentControlE intelligentControl);
+    public int updateIntelligentControl(IntelligentControl intelligentControl);
 
     /**
      * 删除智能控制
@@ -55,7 +55,7 @@ public interface IIntelligentControlService
      * @param intelligentControlItem 智能控制条目
      * @return 结果
      */
-    public int insertIntelligentControlItem(IntelligentControlItemE intelligentControlItem);
+    public int insertIntelligentControlItem(IntelligentControlItem intelligentControlItem);
 
     /**
      * 修改智能控制条目
@@ -63,7 +63,7 @@ public interface IIntelligentControlService
      * @param intelligentControlItem 智能控制条目
      * @return 结果
      */
-    public int updateIntelligentControlItem(IntelligentControlItemE intelligentControlItem);
+    public int updateIntelligentControlItem(IntelligentControlItem intelligentControlItem);
 
     /**
      * 删除智能控制条目

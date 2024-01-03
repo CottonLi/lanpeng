@@ -4,10 +4,8 @@ import com.lanpeng.common.annotation.Log;
 import com.lanpeng.common.core.controller.BaseController;
 import com.lanpeng.common.core.domain.AjaxResult;
 import com.lanpeng.common.enums.BusinessType;
-import com.lanpeng.data.domain.DataStorageE;
-import com.lanpeng.data.domain.DataStorageItemE;
-import com.lanpeng.data.domain.IntelligentControlE;
-import com.lanpeng.data.domain.IntelligentControlItemE;
+import com.lanpeng.data.domain.IntelligentControl;
+import com.lanpeng.data.domain.IntelligentControlItem;
 import com.lanpeng.data.service.IIntelligentControlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +26,7 @@ public class IntelligentControlController extends BaseController
     @GetMapping("/list")
     public AjaxResult intelligentcontrollist()
     {
-        List<IntelligentControlE> items = intelligentControlService.selectAllIntelligentControls();
+        List<IntelligentControl> items = intelligentControlService.selectAllIntelligentControls();
         return success(items);
     }
 
@@ -46,7 +44,7 @@ public class IntelligentControlController extends BaseController
      */
     @Log(title = "智能控制管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult addintelligentcontrol(@Validated @RequestBody IntelligentControlE intelligentControl)
+    public AjaxResult addintelligentcontrol(@Validated @RequestBody IntelligentControl intelligentControl)
     {
         return toAjax(intelligentControlService.insertIntelligentControl(intelligentControl));
     }
@@ -56,7 +54,7 @@ public class IntelligentControlController extends BaseController
      */
     @Log(title = "智能控制管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult editintelligentcontrol(@Validated @RequestBody IntelligentControlE intelligentControl)
+    public AjaxResult editintelligentcontrol(@Validated @RequestBody IntelligentControl intelligentControl)
     {
         return toAjax(intelligentControlService.updateIntelligentControl(intelligentControl));
     }
@@ -76,7 +74,7 @@ public class IntelligentControlController extends BaseController
      */
     @Log(title = "智能控制管理", businessType = BusinessType.INSERT)
     @PostMapping("/item")
-    public AjaxResult addintelligentcontrolitem(@Validated @RequestBody IntelligentControlItemE intelligentControlItem)
+    public AjaxResult addintelligentcontrolitem(@Validated @RequestBody IntelligentControlItem intelligentControlItem)
     {
         return toAjax(intelligentControlService.insertIntelligentControlItem(intelligentControlItem));
     }
@@ -86,7 +84,7 @@ public class IntelligentControlController extends BaseController
      */
     @Log(title = "智能控制管理", businessType = BusinessType.UPDATE)
     @PutMapping("/item")
-    public AjaxResult editintelligentcontrolitem(@Validated @RequestBody IntelligentControlItemE intelligentControlItem)
+    public AjaxResult editintelligentcontrolitem(@Validated @RequestBody IntelligentControlItem intelligentControlItem)
     {
         return toAjax(intelligentControlService.updateIntelligentControlItem(intelligentControlItem));
     }

@@ -7,7 +7,7 @@ import com.lanpeng.common.core.domain.BaseEntity;
  *
  * @author liw
  */
-public class DataStorageItemE extends BaseEntity
+public class DataStorageItem extends BaseEntity
 {
     // 数据存储项编号
     private Long id;
@@ -16,13 +16,15 @@ public class DataStorageItemE extends BaseEntity
     private Integer dataStorageId;
 
     // 数据条目
-    private DataItemE dataItem;
+    private DataItem dataItem;
+
+    private Integer dataItemId;
 
     // 对应数据库表
-    private String table;
+    private String tableName;
 
     // 对应数据库表里字段
-    private String column;
+    private String columnName;
 
     /** 删除标志（0代表存在 2代表删除） */
     private String delFlag;
@@ -43,28 +45,36 @@ public class DataStorageItemE extends BaseEntity
         this.dataStorageId = dataStorageId;
     }
 
-    public DataItemE getDataItem() {
+    public DataItem getDataItem() {
         return dataItem;
     }
 
-    public void setDataItem(DataItemE dataItem) {
+    public void setDataItem(DataItem dataItem) {
         this.dataItem = dataItem;
     }
 
-    public String getTable() {
-        return table;
+    public Integer getDataItemId() {
+        return dataItemId;
     }
 
-    public void setTable(String table) {
-        this.table = table;
+    public void setDataItemId(Integer dataItemId) {
+        this.dataItemId = dataItemId;
     }
 
-    public String getColumn() {
-        return column;
+    public String getTableName() {
+        return tableName;
     }
 
-    public void setColumn(String column) {
-        this.column = column;
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
     }
 
     public String getDelFlag() {
@@ -77,12 +87,13 @@ public class DataStorageItemE extends BaseEntity
 
     @Override
     public String toString() {
-        return "DataStorageItemE{" +
+        return "DataStorageItem{" +
                 "id=" + id +
                 ", dataStorageId=" + dataStorageId +
                 ", dataItem=" + dataItem +
-                ", table='" + table + '\'' +
-                ", column='" + column + '\'' +
+                ", dataItemId=" + dataItemId +
+                ", tableName='" + tableName + '\'' +
+                ", columnName='" + columnName + '\'' +
                 ", delFlag='" + delFlag + '\'' +
                 '}';
     }

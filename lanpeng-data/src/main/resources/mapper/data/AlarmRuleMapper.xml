@@ -4,18 +4,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lanpeng.data.mapper.AlarmRuleMapper">
 
-    <resultMap type="AlarmRuleE" id="AlarmRuleEResult">
-        <id     property="id"                    column="alarmrule_id" />
-        <result property="code"                  column="alarmrule_code" />
-        <result property="version"               column="alarmrule_version" />
-        <result property="dataItemCode"          column="alarmrule_dataitemcode" />
-        <result property="dataItemType"          column="alarmrule_dataitemtype" />
-        <result property="operator"              column="alarmrule_operator" />
-        <result property="operator1"             column="alarmrule_operator1" />
-        <result property="operator2"             column="alarmrule_operator2" />
-        <result property="continuousTime"        column="alarmrule_continuoustime" />
-        <result property="level"                 column="alarmrule_level" />
-        <result property="description"           column="alarmrule_description" />
+    <resultMap type="AlarmRule" id="AlarmRuleResult">
+        <id     property="id"                    column="id" />
+        <result property="code"                  column="code" />
+        <result property="version"               column="version" />
+        <result property="dataItemId"            column="dataItemId" />
+        <result property="dataItemCode"          column="dataItemCode" />
+        <result property="dataItemType"          column="dataItemType" />
+        <result property="operator"              column="operator" />
+        <result property="operator1"             column="operator1" />
+        <result property="operator2"             column="operator2" />
+        <result property="continuousTime"        column="continuousTime" />
+        <result property="level"                 column="level" />
+        <result property="description"           column="description" />
         <result property="status"                column="status"     />
         <result property="delFlag"               column="del_flag"     />
         <result property="createBy"              column="create_by"    />
@@ -23,52 +24,53 @@
         <result property="updateBy"              column="update_by"    />
         <result property="updateTime"            column="update_time"  />
         <result property="remark"                column="remark"       />
-        <association property="dataItem"         javaType="DataItemE"   resultMap="ARDataItemEResult" />
+        <association property="dataItem"         javaType="DataItem"   resultMap="ARDataItemResult" />
     </resultMap>
 
-    <resultMap type="DataItemE" id="ARDataItemEResult">
-        <id     property="id"           column="dataitem_id"  />
-        <result property="code"         column="dataitem_code"/>
-        <result property="name"         column="dataitem_name"/>
-        <result property="type"         column="dataitem_type"/>
-        <result property="displayed"    column="dataitem_displayed"/>
-        <result property="description"  column="dataitem_description"/>
-        <association property="module"  javaType="ModuleE"   resultMap="ARModuleEResult"/>
-    </resultMap>
-
-    <resultMap type="ModuleE" id="ARModuleEResult">
-        <id     property="id"           column="module_id"/>
-        <result property="name"         column="module_name"/>
+    <resultMap type="DataItem" id="ARDataItemResult">
+        <id     property="id"             column="diid"  />
+        <result property="code"           column="dicode"/>
+        <result property="dataName"       column="dataName"/>
+        <result property="dataType"       column="dataType"/>
+        <result property="dataPrecision"  column="dataPrecision"/>
+        <result property="unit"           column="unit"/>
+        <result property="nodeType"       column="nodeType"/>
+        <result property="nodeId"         column="nodeId"/>
+        <result property="mappingField"   column="mappingField"/>
+        <result property="store_flag"     column="store_flag"/>
+        <result property="transfer_flag"  column="transfer_flag"/>
+        <result property="display_flag"   column="display_flag"/>
+        <result property="control_flag"   column="control_flag"/>
+        <result property="alarm_flag"     column="alarm_flag"/>
     </resultMap>
 
     <sql id="selectAlarmRuleVo">
-        select ar.alarmrule_id, ar.alarmrule_code, ar.alarmrule_version,ar.alarmrule_dataitemcode,ar.alarmrule_dataitemtype,ar.alarmrule_operator,
-               ar.alarmrule_operator1,ar.alarmrule_operator2,ar.alarmrule_continuoustime,ar.alarmrule_level,ar.alarmrule_description,
+        select ar.id, ar.code, ar.version,ar.dataItemId,ar.dataItemCode,ar.dataItemType,ar.operator,
+               ar.operator1,ar.operator2,ar.continuousTime,ar.level,ar.description,
                ar.status,ar.del_flag,ar.create_by, ar.create_time, ar.update_by, ar.update_time,ar.remark,
-               di.dataitem_id,di.dataitem_code,di.dataitem_name,di.dataitem_type,di.dataitem_displayed,di.dataitem_description,
-               m.module_id,m.module_name
+               di.id as diid,di.code as dicode,di.dataName,di.dataType,di.dataPrecision,di.unit,di.nodeType,di.nodeId,
+               di.mappingField,di.store_flag,di.transfer_flag,di.display_flag,di.control_flag,di.alarm_flag
         from alarmrule ar
-                 left join dataitem di on ar.alarmrule_dataitemid = di.dataitem_id
-                 left join module m on di.dataitem_moduleid = m.module_id
+                 left join dataitem di on ar.dataItemId = di.id
     </sql>
 
-    <select id="selectAlarmRuleList" resultMap="AlarmRuleEResult">
+    <select id="selectAlarmRuleList" resultMap="AlarmRuleResult">
         <include refid="selectAlarmRuleVo"/>
         where ar.del_flag = '0'
     </select>
 
-    <select id="selectAlarmRuleById" parameterType="Long" resultMap="AlarmRuleEResult">
+    <select id="selectAlarmRuleById" parameterType="Long" resultMap="AlarmRuleResult">
         <include refid="selectAlarmRuleVo"/>
-        where alarmrule_id = #{arid} and ar.del_flag = '0'
+        where ar.id = #{arid} and ar.del_flag = '0'
     </select>
 
-    <insert id="insertAlarmRule" parameterType="AlarmRuleE">
-        insert into alarmrule (alarmrule_code,alarmrule_dataitemid,alarmrule_dataitemcode,alarmrule_dataitemtype,
-        alarmrule_operator,alarmrule_operator1,alarmrule_operator2,alarmrule_continuoustime,alarmrule_level,alarmrule_description,
+    <insert id="insertAlarmRule" parameterType="AlarmRule">
+        insert into alarmrule (code,dataItemId,dataItemCode,dataItemType,
+        operator,operator1,operator2,continuousTime,level,description,
         <if test="ar.remark != null and ar.remark != ''">remark,</if>
         <if test="ar.createBy != null and ar.createBy != ''">create_by,</if>
         create_time
-        )values(#{ar.code},#{ar.dataItem.id},#{ar.dataItemCode},#{ar.dataItemType},#{ar.operator},#{ar.operator1},
+        )values(#{ar.code},#{ar.dataItemId},#{ar.dataItemCode},#{ar.dataItemType},#{ar.operator},#{ar.operator1},
                 #{ar.operator2},#{ar.continuousTime},#{ar.level},#{ar.description},
         <if test="ar.remark != null and ar.remark != ''">#{ar.remark},</if>
         <if test="ar.createBy != null and ar.createBy != ''">#{ar.createBy},</if>
@@ -76,23 +78,23 @@
         )
     </insert>
 
-    <update id="updateAlarmRule" parameterType="AlarmRuleE">
+    <update id="updateAlarmRule" parameterType="AlarmRule">
         update alarmrule
         <set>
-            alarmrule_code = #{ar.code},alarmrule_version = alarmrule_version + 1,alarmrule_dataitemid = #{ar.dataItem.id},
-            alarmrule_dataitemcode = #{ar.dataItemCode},alarmrule_dataitemtype = #{ar.dataItemType},
-            alarmrule_operator = #{ar.operator},alarmrule_operator1 = #{ar.operator1},alarmrule_operator2 = #{ar.operator2},
-            alarmrule_continuoustime = #{ar.continuousTime},alarmrule_level = #{ar.level},alarmrule_description = #{ar.description},
+            code = #{ar.code},version = version + 1,dataItemId = #{ar.dataItemId},
+            dataItemCode = #{ar.dataItemCode},dataItemType = #{ar.dataItemType},
+            operator = #{ar.operator},operator1 = #{ar.operator1},operator2 = #{ar.operator2},
+            continuousTime = #{ar.continuousTime},level = #{ar.level},description = #{ar.description},
             <if test="ar.updateBy != null and ar.updateBy != ''">update_by = #{ar.updateBy},</if>
             <if test="ar.remark != null">remark = #{ar.remark},</if>
             <if test="ar.status != null and ar.status != ''">status = #{ar.status},</if>
             update_time = sysdate()
         </set>
-        where alarmrule_id = #{ar.id}
+        where id = #{ar.id}
     </update>
 
     <delete id="deleteAlarmRuleById" parameterType="Long">
-        update alarmrule set del_flag = '2' where alarmrule_id = #{arid}
+        update alarmrule set del_flag = '2' where id = #{arid}
     </delete>
 
 </mapper>

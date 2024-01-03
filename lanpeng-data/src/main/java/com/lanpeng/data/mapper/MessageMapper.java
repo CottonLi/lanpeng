@@ -1,6 +1,6 @@
 package com.lanpeng.data.mapper;
 
-import com.lanpeng.data.domain.MessageE;
+import com.lanpeng.data.domain.Message;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,7 +20,7 @@ public interface MessageMapper
      * @param messageId 消息编号
      * @return 消息
      */
-    public MessageE selectMessageById(@Param("mid")Long messageId);
+    public Message selectMessageById(@Param("mid")Long messageId);
 
     /**
      * 查询消息
@@ -28,7 +28,7 @@ public interface MessageMapper
      * @param message 消息
      * @return 消息集合
      */
-    public List<MessageE> selectMessageList(@Param("m")MessageE message);
+    public List<Message> selectMessageList(@Param("m") Message message);
 
     /**
      * 新增消息
@@ -36,7 +36,7 @@ public interface MessageMapper
      * @param message 消息
      * @return 结果
      */
-    public int insertMessage(@Param("m")MessageE message);
+    public int insertMessage(@Param("m") Message message);
 
     /**
      * 修改消息
@@ -44,7 +44,7 @@ public interface MessageMapper
      * @param message 消息
      * @return 结果
      */
-    public int updateMessage(@Param("m")MessageE message);
+    public int updateMessage(@Param("m") Message message);
 
     /**
      * 删除消息

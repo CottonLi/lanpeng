@@ -4,231 +4,243 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lanpeng.data.mapper.DataStorageMapper">
 
-    <resultMap type="DBConnectionE" id="DBConnectionEAllResult">
-        <id          property="id"                 column="dbconnection_id" />
-        <result      property="name"               column="dbconnection_name" />
-        <result      property="serverName"         column="dbconnection_servername" />
-        <result      property="serverPort"         column="dbconnection_serverport" />
-        <result      property="database"           column="dbconnection_database" />
-        <result      property="userName"           column="dbconnection_username" />
-        <result      property="password"           column="dbconnection_password" />
+    <resultMap type="DBConnection" id="DBConnectionAllResult">
+        <id          property="id"                 column="dbcid" />
+        <result      property="name"               column="dbcname" />
+        <result      property="dbConnectionTypeId" column="dbConnectionTypeId" />
+        <result      property="serverName"         column="serverName" />
+        <result      property="serverPort"         column="serverPort" />
+        <result      property="databaseName"       column="databaseName" />
+        <result      property="userName"           column="userName" />
+        <result      property="userPassword"       column="userPassword" />
         <result      property="delFlag"            column="del_flag"     />
         <result      property="createBy"           column="create_by"    />
         <result      property="createTime"         column="create_time"  />
         <result      property="updateBy"           column="update_by"    />
         <result      property="updateTime"         column="update_time"  />
         <result      property="remark"             column="remark"       />
-        <association property="dbconnectionType"   javaType="DBConnectionTypeE"   resultMap="DBConnectionTypeEResult" />
+        <association property="dbconnectionType"   javaType="DBConnectionType"   resultMap="DBConnectionTypeResult" />
     </resultMap>
 
-    <resultMap type="DBConnectionE" id="DBConnectionEPartResult">
-        <id          property="id"                 column="dbconnection_id" />
-        <result      property="name"               column="dbconnection_name" />
-        <result      property="serverName"         column="dbconnection_servername" />
-        <result      property="serverPort"         column="dbconnection_serverport" />
-        <result      property="database"           column="dbconnection_database" />
-        <result      property="userName"           column="dbconnection_username" />
-        <result      property="password"           column="dbconnection_password" />
-        <association property="dbconnectionType"   javaType="DBConnectionTypeE"   resultMap="DBConnectionTypeEResult" />
+    <resultMap type="DBConnection" id="DBConnectionPartResult">
+        <id          property="id"                 column="dbcid" />
+        <result      property="name"               column="dbcname" />
+        <result      property="dbConnectionTypeId" column="dbConnectionTypeId" />
+        <result      property="serverName"         column="serverName" />
+        <result      property="serverPort"         column="serverPort" />
+        <result      property="databaseName"       column="databaseName" />
+        <result      property="userName"           column="userName" />
+        <result      property="userPassword"       column="userPassword" />
+        <association property="dbconnectionType"   javaType="DBConnectionType"   resultMap="DBConnectionTypeResult" />
     </resultMap>
 
-    <resultMap type="DBConnectionTypeE" id="DBConnectionTypeEResult">
-        <id     property="id"          column="dbconnectiontype_id" />
-        <result property="name"        column="dbconnectiontype_name" />
+    <resultMap type="DBConnectionType" id="DBConnectionTypeResult">
+        <id     property="id"          column="dbctid" />
+        <result property="name"        column="dbctname" />
     </resultMap>
 
-    <resultMap type="DataStorageE" id="DataStorageEResult">
-        <id          property="id"               column="datastorage_id" />
-        <result      property="name"             column="datastorage_name" />
-        <result      property="code"             column="datastorage_code" />
-        <result      property="type"             column="datastorage_type" />
-        <result      property="description"      column="datastorage_description" />
+    <resultMap type="DataStorage" id="DataStorageResult">
+        <id          property="id"               column="id" />
+        <result      property="moduleInfoId"     column="moduleInfoId" />
+        <result      property="dbConnectionId"   column="dbConnectionId" />
+        <result      property="name"             column="name" />
+        <result      property="code"             column="code" />
+        <result      property="type"             column="type" />
+        <result      property="description"      column="description" />
         <result      property="delFlag"          column="del_flag"     />
         <result      property="createBy"         column="create_by"    />
         <result      property="createTime"       column="create_time"  />
         <result      property="updateBy"         column="update_by"    />
         <result      property="updateTime"       column="update_time"  />
         <result      property="remark"           column="remark"       />
-        <association property="module"           javaType="ModuleE"   resultMap="DSModuleEFatherResult" />
-        <association property="dbconnection"     javaType="DBConnectionE"   resultMap="DBConnectionEPartResult" />
-        <collection  property="items"            javaType="java.util.List"  resultMap="DataStorageItemEPartResult" />
+        <association property="moduleInfo"       javaType="ModuleInfo"   resultMap="DSModuleInfoResult" />
+        <association property="dbconnection"     javaType="DBConnection"   resultMap="DBConnectionPartResult" />
+        <collection  property="items"            javaType="java.util.List"  resultMap="DataStorageItemPartResult" />
     </resultMap>
 
-    <resultMap type="DataStorageItemE" id="DataStorageItemEAllResult">
-        <id          property="id"             column="datastorageitem_id" />
-        <result      property="dataStorageId"  column="datastorageitem_datastorageid" />
-        <result      property="table"          column="datastorageitem_table" />
-        <result      property="column"         column="datastorageitem_column" />
+    <resultMap type="DataStorageItem" id="DataStorageItemAllResult">
+        <id          property="id"             column="dsiid" />
+        <result      property="dataStorageId"  column="dataStorageId" />
+        <result      property="dataItemId"     column="dataItemId" />
+        <result      property="tableName"          column="tableName" />
+        <result      property="columnName"         column="columnName" />
         <result      property="delFlag"        column="del_flag"     />
         <result      property="createBy"       column="create_by"    />
         <result      property="createTime"     column="create_time"  />
         <result      property="updateBy"       column="update_by"    />
         <result      property="updateTime"     column="update_time"  />
         <result      property="remark"         column="remark"       />
-        <association property="dataItem"       javaType="DataItemE"   resultMap="DSDataItemEResult" />
+        <association property="dataItem"       javaType="DataItem"   resultMap="DSDataItemResult" />
     </resultMap>
 
-    <resultMap type="DataStorageItemE" id="DataStorageItemEPartResult">
-        <id     property="id"             column="datastorageitem_id" />
-        <result property="dataStorageId"  column="datastorageitem_datastorageid" />
-        <result property="table"          column="datastorageitem_table" />
-        <result property="column"         column="datastorageitem_column" />
-        <association property="dataItem"  javaType="DataItemE"   resultMap="DSDataItemEResult" />
+    <resultMap type="DataStorageItem" id="DataStorageItemPartResult">
+        <id     property="id"             column="dsiid" />
+        <result property="dataStorageId"  column="dataStorageId" />
+        <result property="dataItemId"     column="dataItemId" />
+        <result property="tableName"          column="tableName" />
+        <result property="columnName"         column="columnName" />
+        <association property="dataItem"  javaType="DataItem"   resultMap="DSDataItemResult" />
     </resultMap>
 
-    <resultMap type="DataItemE" id="DSDataItemEResult">
-        <id     property="id"           column="dataitem_id"  />
-        <result property="code"         column="dataitem_code"/>
-        <result property="name"         column="dataitem_name"/>
-        <result property="type"         column="dataitem_type"/>
-        <result property="displayed"    column="dataitem_displayed"/>
-        <result property="description"  column="dataitem_description"/>
-        <association property="module"  javaType="ModuleE"   resultMap="DSModuleESonResult"/>
+    <resultMap type="DataItem" id="DSDataItemResult">
+        <id     property="id"             column="diid"  />
+        <result property="code"           column="dicode"/>
+        <result property="dataName"       column="dataName"/>
+        <result property="dataType"       column="dataType"/>
+        <result property="dataPrecision"  column="dataPrecision"/>
+        <result property="unit"           column="unit"/>
+        <result property="nodeType"       column="nodeType"/>
+        <result property="nodeId"         column="nodeId"/>
+        <result property="mappingField"   column="mappingField"/>
+        <result property="store_flag"     column="store_flag"/>
+        <result property="transfer_flag"  column="transfer_flag"/>
+        <result property="display_flag"   column="display_flag"/>
+        <result property="control_flag"   column="control_flag"/>
+        <result property="alarm_flag"     column="alarm_flag"/>
     </resultMap>
 
-    <resultMap type="ModuleE" id="DSModuleEFatherResult">
-        <id     property="id"      column="module_id"/>
-        <result property="name"    column="module_name"/>
+    <resultMap type="ModuleInfo" id="DSModuleInfoResult">
+        <id     property="id"                column="mid"/>
+        <result property="code"              column="mcode"/>
+        <result property="name"              column="mname"/>
+        <result property="model"             column="model"/>
+        <result property="type"              column="mtype"/>
+        <result property="description"       column="mdescription"/>
+        <result property="className"         column="className"/>
+        <result property="version"           column="version"/>
+        <result property="assemblyName"      column="assemblyName"/>
+        <result property="configFileName"    column="configFileName"/>
     </resultMap>
 
-    <resultMap type="ModuleE" id="DSModuleESonResult">
-        <id     property="id"      column="moduleson_id"/>
-        <result property="name"    column="moduleson_name"/>
-    </resultMap>
-
-    <select id="selectAllDBConnectionTypes" resultMap="DBConnectionTypeEResult">
-        select d.dbconnectiontype_id, d.dbconnectiontype_name
+    <select id="selectAllDBConnectionTypes" resultMap="DBConnectionTypeResult">
+        select d.id as dbctid, d.name as dbctname
         from dbconnectiontype d
     </select>
 
-    <select id="selectAllDBConnections" resultMap="DBConnectionEAllResult">
-        select d.dbconnection_id, d.dbconnection_name, d.dbconnection_servername,d.dbconnection_serverport,d.dbconnection_database,d.dbconnection_username,d.dbconnection_password,
+    <select id="selectAllDBConnections" resultMap="DBConnectionAllResult">
+        select d.id as dbcid, d.name as dbcname, d.dbConnectionTypeId,d.serverName,d.serverPort,d.databaseName,d.userName,d.userPassword,
                d.del_flag, d.create_by, d.create_time, d.update_by, d.update_time, d.remark,
-               t.dbconnectiontype_id, t.dbconnectiontype_name
+               t.id as dbctid, t.name as dbctname
         from dbconnection d
-                 left join dbconnectiontype t on d.dbconnection_dbconnectiontypeid = t.dbconnectiontype_id
+                 left join dbconnectiontype t on d.dbConnectionTypeId = t.id
         where d.del_flag = '0'
     </select>
 
-    <select id="selectAllDataStorages" resultMap="DataStorageEResult">
-        select d.datastorage_id, d.datastorage_name, d.datastorage_code,d.datastorage_type,d.datastorage_description,
+    <select id="selectAllDataStorages" resultMap="DataStorageResult">
+        select d.id, d.moduleInfoId, d.name, d.code,d.type,d.description,d.dbConnectionId,
                d.del_flag, d.create_by, d.create_time, d.update_by, d.update_time, d.remark,
-               m.module_id,m.module_name,
-               dbc.dbconnection_id, dbc.dbconnection_name, dbc.dbconnection_servername, dbc.dbconnection_serverport, dbc.dbconnection_database, dbc.dbconnection_username, dbc.dbconnection_password,
-               dbct.dbconnectiontype_id,dbct.dbconnectiontype_name,
-               dsi.datastorageitem_id,dsi.datastorageitem_datastorageid,dsi.datastorageitem_table,dsi.datastorageitem_column,
-               di.dataitem_id,di.dataitem_code,di.dataitem_name,di.dataitem_type,di.dataitem_displayed,di.dataitem_description,
-               mm.module_id as moduleson_id,mm.module_name as moduleson_name
+               m.id as mid,m.code as mcode,m.name as mname,m.model,m.type as mtype,m.description as mdescription,m.className,m.version,m.assemblyName,m.configFileName,
+               dbc.id as dbcid, dbc.name as dbcname, dbc.dbConnectionTypeId, dbc.serverName, dbc.serverPort, dbc.databaseName, dbc.userName, dbc.userPassword,
+               dbct.id as dbctid,dbct.name as dbctname,
+               dsi.id as dsiid,dsi.dataStorageId,dsi.dataItemId,dsi.tableName,dsi.columnName,
+               di.id as diid,di.code as dicode,di.dataName,di.dataType,di.dataPrecision,di.unit,di.nodeType,di.nodeId,di.mappingField,
+               di.store_flag,di.transfer_flag,di.display_flag,di.control_flag,di.alarm_flag
         from datastorage d
-                 left join module m on d.datastorage_moduleid = m.module_id
-                 left join dbconnection dbc on d.datastorage_dbconnectionid = dbc.dbconnection_id
-                 left join dbconnectiontype dbct on dbc.dbconnection_dbconnectiontypeid = dbct.dbconnectiontype_id
-                 left join datastorageitem dsi on d.datastorage_id = dsi.datastorageitem_datastorageid
-                 left join dataitem di on dsi.datastorageitem_dataitemid = di.dataitem_id
-                 left join module mm on di.dataitem_moduleid = mm.module_id
+                 left join moduleinfo m on d.moduleInfoId = m.id
+                 left join dbconnection dbc on d.dbConnectionId = dbc.id
+                 left join dbconnectiontype dbct on dbc.dbConnectionTypeId = dbct.id
+                 left join datastorageitem dsi on d.id = dsi.dataStorageId and dsi.del_flag = '0'
+                 left join dataitem di on dsi.dataItemId = di.id
         where d.del_flag = '0'
     </select>
 
-    <select id="selectDataStorageItemsByDataStorageId" resultMap="DataStorageItemEAllResult">
-        select dsi.datastorageitem_id, dsi.datastorageitem_datastorageid,dsi.datastorageitem_table,dsi.datastorageitem_column,
+    <select id="selectDataStorageItemsByDataStorageId" resultMap="DataStorageItemAllResult">
+        select dsi.id as dsiid, dsi.dataStorageId,dsi.dataItemId,dsi.tableName,dsi.columnName,
                dsi.del_flag, dsi.create_by, dsi.create_time, dsi.update_by, dsi.update_time, dsi.remark,
-               di.dataitem_id,di.dataitem_code,di.dataitem_name,di.dataitem_type,di.dataitem_displayed,di.dataitem_description,
-               mm.module_id as moduleson_id,mm.module_name as moduleson_name
+               di.id as diid,di.code as dicode,di.dataName,di.dataType,di.dataPrecision,di.unit,di.nodeType,di.nodeId,di.mappingField,
+               di.store_flag,di.transfer_flag,di.display_flag,di.control_flag,di.alarm_flag
         from datastorageitem dsi
-                left join dataitem di on dsi.datastorageitem_dataitemid = di.dataitem_id
-                left join module mm on di.dataitem_moduleid = mm.module_id
-        where dsi.datastorageitem_datastorageid = #{dsid} and dsi.del_flag = '0'
+                left join dataitem di on dsi.dataItemId = di.id
+        where dsi.dataStorageId = #{dsid} and dsi.del_flag = '0'
     </select>
 
-    <insert id="insertDBConnection" parameterType="DBConnectionE" useGeneratedKeys="true" keyProperty="id">
-        insert into dbconnection(dbconnection_name,dbconnection_dbconnectiontypeid,dbconnection_servername,dbconnection_serverport,
-                                 dbconnection_database,dbconnection_username,dbconnection_password,
+    <insert id="insertDBConnection" parameterType="DBConnection" useGeneratedKeys="true" keyProperty="id">
+        insert into dbconnection(name,dbConnectionTypeId,serverName,serverPort,databaseName,userName,userPassword,
                                  <if test="dbc.createBy != null and dbc.createBy != ''">create_by,</if>
                                  <if test="dbc.remark != null and dbc.remark != ''">remark,</if>
                                  create_time)
-        values(#{dbc.name},#{dbc.dbconnectionType.id},#{dbc.serverName},#{dbc.serverPort},
-                #{dbc.database},#{dbc.userName},#{dbc.password},
+        values(#{dbc.name},#{dbc.dbConnectionTypeId},#{dbc.serverName},#{dbc.serverPort},
+                #{dbc.databaseName},#{dbc.userName},#{dbc.userPassword},
                <if test="dbc.createBy != null and dbc.createBy != ''">#{dbc.createBy},</if>
                <if test="dbc.remark != null and dbc.remark != ''">#{dbc.remark},</if>
                sysdate())
     </insert>
 
-    <update id="updateDBConnection" parameterType="DBConnectionE">
+    <update id="updateDBConnection" parameterType="DBConnection">
         update dbconnection
         <set>
-            dbconnection_name = #{dbc.name},dbconnection_dbconnectiontypeid = #{dbc.dbconnectionType.id},
-            dbconnection_servername = #{dbc.serverName},dbconnection_serverport = #{dbc.serverPort},
-            dbconnection_database = #{dbc.database},dbconnection_username = #{dbc.userName},dbconnection_password = #{dbc.password},
+            name = #{dbc.name},dbConnectionTypeId = #{dbc.dbConnectionTypeId},
+            serverName = #{dbc.serverName},serverPort = #{dbc.serverPort},
+            databaseName = #{dbc.databaseName},userName = #{dbc.userName},userPassword = #{dbc.userPassword},
             <if test="dbc.updateBy != null and dbc.updateBy != ''">update_by = #{dbc.updateBy},</if>
             <if test="dbc.remark != null">remark = #{dbc.remark},</if>
             update_time = sysdate()
         </set>
-        where dbconnection_id = #{dbc.id}
+        where id = #{dbc.id}
     </update>
 
     <delete id="deleteDBConnectionById" parameterType="Long">
-        update dbconnection set del_flag = '2' where dbconnection_id = #{dbcid}
+        update dbconnection set del_flag = '2' where id = #{dbcid}
     </delete>
 
-    <insert id="insertDataStorage" parameterType="DataStorageE" useGeneratedKeys="true" keyProperty="id">
-        insert into datastorage(datastorage_name,datastorage_moduleid,datastorage_code,datastorage_type,
-                                datastorage_dbconnectionid,datastorage_description,
+    <insert id="insertDataStorage" parameterType="DataStorage" useGeneratedKeys="true" keyProperty="id">
+        insert into datastorage(name,moduleInfoId,code,type,dbConnectionId,description,
                                 <if test="ds.createBy != null and ds.createBy != ''">create_by,</if>
                                 <if test="ds.remark != null and ds.remark != ''">remark,</if>
                                 create_time)
-        values(#{ds.name},#{ds.module.id},#{ds.code},#{ds.type},
-               #{ds.dbconnection.id},#{ds.description},
+        values(#{ds.name},#{ds.moduleInfoId},#{ds.code},#{ds.type},
+               #{ds.dbConnectionId},#{ds.description},
                <if test="ds.createBy != null and ds.createBy != ''">#{ds.createBy},</if>
                <if test="ds.remark != null and ds.remark != ''">#{ds.remark},</if>
                sysdate())
     </insert>
 
-    <update id="updateDataStorage" parameterType="DataStorageE">
+    <update id="updateDataStorage" parameterType="DataStorage">
         update datastorage
         <set>
-            datastorage_name = #{ds.name},datastorage_moduleid = #{ds.module.id},
-            datastorage_code = #{ds.code},datastorage_type = #{ds.type},
-            datastorage_dbconnectionid = #{ds.dbconnection.id},datastorage_description = #{ds.description},
+            name = #{ds.name},moduleInfoId = #{ds.moduleInfoId},
+            code = #{ds.code},type = #{ds.type},
+            dbConnectionId = #{ds.dbConnectionId},description = #{ds.description},
             <if test="ds.updateBy != null and ds.updateBy != ''">update_by = #{ds.updateBy},</if>
             <if test="ds.remark != null">remark = #{ds.remark},</if>
             update_time = sysdate()
         </set>
-        where datastorage_id = #{ds.id}
+        where id = #{ds.id}
     </update>
 
     <delete id="deleteDataStorageById" parameterType="Long">
-        update datastorage set del_flag = '2' where datastorage_id = #{dsid}
+        update datastorage set del_flag = '2' where id = #{dsid}
     </delete>
 
     <delete id="deleteDataStorageItemByDataStorageId" parameterType="Long">
-        update datastorageitem set del_flag = '2' where datastorageitem_datastorageid = #{dsid}
+        update datastorageitem set del_flag = '2' where dataStorageId = #{dsid}
     </delete>
 
-    <insert id="insertDataStorageItem" parameterType="DataStorageItemE" useGeneratedKeys="true" keyProperty="id">
-        insert into datastorageitem(datastorageitem_datastorageid,datastorageitem_dataitemid,datastorageitem_table,datastorageitem_column,
+    <insert id="insertDataStorageItem" parameterType="DataStorageItem">
+        insert into datastorageitem(dataStorageId,dataItemId,tableName,columnName,
                                     <if test="dsi.createBy != null and dsi.createBy != ''">create_by,</if>
                                     <if test="dsi.remark != null and dsi.remark != ''">remark,</if>
                                     create_time)
-        values(#{dsi.dataStorageId},#{dsi.dataItem.id},#{dsi.table},#{dsi.column},
+        values(#{dsi.dataStorageId},#{dsi.dataItemId},#{dsi.tableName},#{dsi.columnName},
                <if test="dsi.createBy != null and dsi.createBy != ''">#{dsi.createBy},</if>
                <if test="dsi.remark != null and dsi.remark != ''">#{dsi.remark},</if>
                sysdate())
     </insert>
 
-    <update id="updateDataStorageItem" parameterType="DataStorageItemE">
+    <update id="updateDataStorageItem" parameterType="DataStorageItem">
         update datastorageitem
         <set>
-            datastorageitem_datastorageid = #{dsi.dataStorageId},datastorageitem_dataitemid = #{dsi.dataItem.id},
-            datastorageitem_table = #{dsi.table},datastorageitem_column = #{dsi.column},
+            dataStorageId = #{dsi.dataStorageId},dataItemId = #{dsi.dataItemId},
+            tableName = #{dsi.tableName},columnName = #{dsi.columnName},
             <if test="dsi.updateBy != null and dsi.updateBy != ''">update_by = #{dsi.updateBy},</if>
             <if test="dsi.remark != null">remark = #{dsi.remark},</if>
             update_time = sysdate()
         </set>
-        where datastorageitem_id = #{dsi.id}
+        where id = #{dsi.id}
     </update>
 
     <delete id="deleteDataStorageItemById" parameterType="Long">
-        update datastorageitem set del_flag = '2' where datastorageitem_id = #{dsiid}
+        update datastorageitem set del_flag = '2' where id = #{dsiid}
     </delete>
 
 </mapper>

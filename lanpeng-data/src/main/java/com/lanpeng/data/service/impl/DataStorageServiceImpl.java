@@ -1,9 +1,9 @@
 package com.lanpeng.data.service.impl;
 
-import com.lanpeng.data.domain.DBConnectionE;
-import com.lanpeng.data.domain.DBConnectionTypeE;
-import com.lanpeng.data.domain.DataStorageE;
-import com.lanpeng.data.domain.DataStorageItemE;
+import com.lanpeng.data.domain.DBConnection;
+import com.lanpeng.data.domain.DBConnectionType;
+import com.lanpeng.data.domain.DataStorage;
+import com.lanpeng.data.domain.DataStorageItem;
 import com.lanpeng.data.mapper.DataStorageMapper;
 import com.lanpeng.data.service.IDataStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class DataStorageServiceImpl implements IDataStorageService
      * @return 所有数据库连接类型列表
      */
     @Override
-    public List<DBConnectionTypeE> selectAllDBConnectionTypes()
+    public List<DBConnectionType> selectAllDBConnectionTypes()
     {
         return dataStorageMapper.selectAllDBConnectionTypes();
     }
@@ -34,7 +34,7 @@ public class DataStorageServiceImpl implements IDataStorageService
      * @return 所有数据库连接列表
      */
     @Override
-    public List<DBConnectionE> selectAllDBConnections()
+    public List<DBConnection> selectAllDBConnections()
     {
         return dataStorageMapper.selectAllDBConnections();
     }
@@ -45,7 +45,7 @@ public class DataStorageServiceImpl implements IDataStorageService
      * @return 所有数据存储列表
      */
     @Override
-    public List<DataStorageE> selectAllDataStorages()
+    public List<DataStorage> selectAllDataStorages()
     {
         return dataStorageMapper.selectAllDataStorages();
     }
@@ -57,7 +57,7 @@ public class DataStorageServiceImpl implements IDataStorageService
      * @return 所有数据存储列表
      */
     @Override
-    public List<DataStorageItemE> selectDataStorageItemsByDataStorageId(Long dataStorageId)
+    public List<DataStorageItem> selectDataStorageItemsByDataStorageId(Long dataStorageId)
     {
         return dataStorageMapper.selectDataStorageItemsByDataStorageId(dataStorageId);
     }
@@ -69,7 +69,7 @@ public class DataStorageServiceImpl implements IDataStorageService
      * @return 结果
      */
     @Override
-    public int insertDBConnection(DBConnectionE dbconnection)
+    public int insertDBConnection(DBConnection dbconnection)
     {
         return dataStorageMapper.insertDBConnection(dbconnection);
     }
@@ -81,7 +81,7 @@ public class DataStorageServiceImpl implements IDataStorageService
      * @return 结果
      */
     @Override
-    public int updateDBConnection(DBConnectionE dbconnection)
+    public int updateDBConnection(DBConnection dbconnection)
     {
         return dataStorageMapper.updateDBConnection(dbconnection);
     }
@@ -105,7 +105,7 @@ public class DataStorageServiceImpl implements IDataStorageService
      * @return 结果
      */
     @Override
-    public int insertDataStorage(DataStorageE dataStorage)
+    public int insertDataStorage(DataStorage dataStorage)
     {
         return dataStorageMapper.insertDataStorage(dataStorage);
     }
@@ -117,7 +117,7 @@ public class DataStorageServiceImpl implements IDataStorageService
      * @return 结果
      */
     @Override
-    public int updateDataStorage(DataStorageE dataStorage)
+    public int updateDataStorage(DataStorage dataStorage)
     {
         return dataStorageMapper.updateDataStorage(dataStorage);
     }
@@ -142,7 +142,7 @@ public class DataStorageServiceImpl implements IDataStorageService
      * @return 结果
      */
     @Override
-    public int insertDataStorageItem(DataStorageItemE dataStorageItem)
+    public int insertDataStorageItem(DataStorageItem dataStorageItem)
     {
         return dataStorageMapper.insertDataStorageItem(dataStorageItem);
     }
@@ -154,7 +154,7 @@ public class DataStorageServiceImpl implements IDataStorageService
      * @return 结果
      */
     @Override
-    public int updateDataStorageItem(DataStorageItemE dataStorageItem)
+    public int updateDataStorageItem(DataStorageItem dataStorageItem)
     {
         return dataStorageMapper.updateDataStorageItem(dataStorageItem);
     }

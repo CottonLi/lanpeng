@@ -7,7 +7,7 @@ import com.lanpeng.common.core.domain.BaseEntity;
  *
  * @author liw
  */
-public class IntelligentControlItemE extends BaseEntity
+public class IntelligentControlItem extends BaseEntity
 {
     private Long id;
 
@@ -15,7 +15,9 @@ public class IntelligentControlItemE extends BaseEntity
     private Integer intelligentControlId;
 
     // 数据条目，这里面有标识符和类型
-    private DataItemE dataItem;
+    private DataItem dataItem;
+
+    private Integer dataItemId;
 
     // 数据条目所使用的长度
     private Integer length;
@@ -44,12 +46,20 @@ public class IntelligentControlItemE extends BaseEntity
         this.intelligentControlId = intelligentControlId;
     }
 
-    public DataItemE getDataItem() {
+    public DataItem getDataItem() {
         return dataItem;
     }
 
-    public void setDataItem(DataItemE dataItem) {
+    public void setDataItem(DataItem dataItem) {
         this.dataItem = dataItem;
+    }
+
+    public Integer getDataItemId() {
+        return dataItemId;
+    }
+
+    public void setDataItemId(Integer dataItemId) {
+        this.dataItemId = dataItemId;
     }
 
     public Integer getLength() {
@@ -86,10 +96,11 @@ public class IntelligentControlItemE extends BaseEntity
 
     @Override
     public String toString() {
-        return "IntelligentControlItemE{" +
+        return "IntelligentControlItem{" +
                 "id=" + id +
                 ", intelligentControlId=" + intelligentControlId +
                 ", dataItem=" + dataItem +
+                ", dataItemId=" + dataItemId +
                 ", length=" + length +
                 ", description='" + description + '\'' +
                 ", interfaceParameter='" + interfaceParameter + '\'' +

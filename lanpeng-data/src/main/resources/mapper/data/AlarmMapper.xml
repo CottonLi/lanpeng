@@ -4,94 +4,98 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lanpeng.data.mapper.AlarmMapper">
 
-    <resultMap type="AlarmE" id="AlarmEResult">
-        <id     property="id"                    column="alarm_id" />
-        <result property="alarmRuleVersion"      column="alarm_alarmruleversion" />
-        <result property="object"                column="alarm_object" />
-        <result property="level"                 column="alarm_level" />
-        <result property="content"               column="alarm_content" />
+    <resultMap type="Alarm" id="AlarmResult">
+        <id     property="id"                    column="id" />
+        <result property="alarmRuleId"           column="alarmRuleId" />
+        <result property="alarmRuleVersion"      column="alarmRuleVersion" />
+        <result property="object"                column="object" />
+        <result property="level"                 column="level" />
+        <result property="content"               column="content" />
         <result property="status"                column="status" />
-        <result property="occurTime"             column="occur_time" />
-        <result property="acknowledgeBy"         column="acknowledge_by" />
-        <result property="acknowledgeTime"       column="acknowledge_time" />
-        <result property="clearBy"               column="clear_by" />
-        <result property="clearTime"             column="clear_time" />
-        <result property="closeBy"               column="close_by"     />
-        <result property="closeTime"             column="colse_time"     />
-        <association property="alarmRule"        javaType="AlarmRuleE"   resultMap="AAlarmRuleEResult" />
+        <result property="occurTime"             column="occurTime" />
+        <result property="acknowledgeBy"         column="acknowledgeBy" />
+        <result property="acknowledgeTime"       column="acknowledgeTime" />
+        <result property="clearBy"               column="clearBy" />
+        <result property="clearTime"             column="clearTime" />
+        <result property="closeBy"               column="closeBy"     />
+        <result property="closeTime"             column="closeTime"     />
+        <association property="alarmRule"        javaType="AlarmRule"   resultMap="AAlarmRuleResult" />
     </resultMap>
 
-    <resultMap type="AlarmRuleE" id="AAlarmRuleEResult">
-        <id     property="id"                    column="alarmrule_id" />
-        <result property="code"                  column="alarmrule_code" />
-        <result property="version"               column="alarmrule_version" />
-        <result property="dataItemCode"          column="alarmrule_dataitemcode" />
-        <result property="dataItemType"          column="alarmrule_dataitemtype" />
-        <result property="operator"              column="alarmrule_operator" />
-        <result property="operator1"             column="alarmrule_operator1" />
-        <result property="operator2"             column="alarmrule_operator2" />
-        <result property="continuousTime"        column="alarmrule_continuoustime" />
-        <result property="level"                 column="alarmrule_level" />
-        <result property="description"           column="alarmrule_description" />
-        <association property="dataItem"         javaType="DataItemE"   resultMap="ADataItemEResult" />
+    <resultMap type="AlarmRule" id="AAlarmRuleResult">
+        <id     property="id"                    column="arid" />
+        <result property="code"                  column="code" />
+        <result property="version"               column="version" />
+        <result property="dataItemId"            column="dataItemId" />
+        <result property="dataItemCode"          column="dataItemCode" />
+        <result property="dataItemType"          column="dataItemType" />
+        <result property="operator"              column="operator" />
+        <result property="operator1"             column="operator1" />
+        <result property="operator2"             column="operator2" />
+        <result property="continuousTime"        column="continuousTime" />
+        <result property="level"                 column="arlevel" />
+        <result property="description"           column="description" />
+        <association property="dataItem"         javaType="DataItem"   resultMap="ADataItemResult" />
     </resultMap>
 
-    <resultMap type="DataItemE" id="ADataItemEResult">
-        <id     property="id"           column="dataitem_id"  />
-        <result property="code"         column="dataitem_code"/>
-        <result property="name"         column="dataitem_name"/>
-        <result property="type"         column="dataitem_type"/>
-        <result property="description"  column="dataitem_description"/>
-        <association property="module"  javaType="ModuleE"   resultMap="AModuleEResult"/>
-    </resultMap>
-
-    <resultMap type="ModuleE" id="AModuleEResult">
-        <id     property="id"           column="module_id"/>
-        <result property="name"         column="module_name"/>
+    <resultMap type="DataItem" id="ADataItemResult">
+        <id     property="id"             column="diid"  />
+        <result property="code"           column="dicode"/>
+        <result property="dataName"       column="dataName"/>
+        <result property="dataType"       column="dataType"/>
+        <result property="dataPrecision"  column="dataPrecision"/>
+        <result property="unit"           column="unit"/>
+        <result property="nodeType"       column="nodeType"/>
+        <result property="nodeId"         column="nodeId"/>
+        <result property="mappingField"   column="mappingField"/>
+        <result property="store_flag"     column="store_flag"/>
+        <result property="transfer_flag"  column="transfer_flag"/>
+        <result property="display_flag"   column="display_flag"/>
+        <result property="control_flag"   column="control_flag"/>
+        <result property="alarm_flag"     column="alarm_flag"/>
     </resultMap>
 
     <sql id="selectAlarmVo">
-        select a.alarm_id, a.alarm_alarmruleversion, a.alarm_object,a.alarm_level,a.alarm_content,a.status,
-               a.occur_time,a.acknowledge_by,a.acknowledge_time,a.clear_by,a.clear_time,
-               a.close_by,a.colse_time,
-               ar.alarmrule_id,ar.alarmrule_code,ar.alarmrule_version,ar.alarmrule_dataitemcode,ar.alarmrule_dataitemtype,
-               ar.alarmrule_operator,ar.alarmrule_operator1,ar.alarmrule_operator2,ar.alarmrule_continuoustime,
-               ar.alarmrule_level,ar.alarmrule_description,
-               di.dataitem_id,di.dataitem_code,di.dataitem_name,di.dataitem_type,di.dataitem_description,
-               m.module_id,m.module_name
+        select a.id, a.alarmRuleId, a.alarmRuleVersion, a.object,a.level,a.content,a.status,
+               a.occurTime,a.acknowledgeBy,a.acknowledgeTime,a.clearBy,a.clearTime,
+               a.closeBy,a.closeTime,
+               ar.id as arid,ar.code,ar.version,ar.dataItemId,ar.dataItemCode,ar.dataItemType,
+               ar.operator,ar.operator1,ar.operator2,ar.continuousTime,
+               ar.level as arlevel,ar.description,
+               di.id as diid,di.code as dicode,di.dataName,di.dataType,di.dataPrecision,di.unit,di.nodeType,di.nodeId,di.mappingField,
+               di.store_flag,di.transfer_flag,di.display_flag,di.control_flag,di.alarm_flag
         from alarm a
-                 left join alarmrule ar on a.alarm_alarmruleid = ar.alarmrule_id
-                 left join dataitem di on ar.alarmrule_dataitemid = di.dataitem_id
-                 left join module m on di.dataitem_moduleid = m.module_id
+                 left join alarmrule ar on a.alarmRuleId = ar.id
+                 left join dataitem di on ar.dataItemId = di.id
     </sql>
 
-    <select id="selectAlarmList" parameterType="AlarmConditionE" resultMap="AlarmEResult">
+    <select id="selectAlarmList" parameterType="AlarmCondition" resultMap="AlarmResult">
         <include refid="selectAlarmVo"/>
         where
         <if test="ac.status != null and ac.status != ''"> a.status=#{ac.status} and </if>
-        <if test="ac.level != null"> a.alarm_level=#{ac.level} and </if>
-        <if test="ac.startTime != null"> a.occur_time<![CDATA[ >= ]]>#{ac.startTime} and </if>
-        <if test="ac.stopTime != null"> a.occur_time<![CDATA[ <= ]]>#{ac.stopTime} and </if>
+        <if test="ac.level != null"> a.level=#{ac.level} and </if>
+        <if test="ac.startTime != null"> a.occurTime<![CDATA[ >= ]]>#{ac.startTime} and </if>
+        <if test="ac.stopTime != null"> a.occurTime<![CDATA[ <= ]]>#{ac.stopTime} and </if>
         1=1
     </select>
 
-    <insert id="insertAlarm" parameterType="AlarmE">
-        insert into alarm (alarm_alarmruleid,alarm_alarmruleversion,alarm_object,alarm_level,alarm_content,occur_time
-        )values(#{a.alarmRule.id},#{a.alarmRuleVersion},#{a.object},#{a.level},#{a.content},sysdate())
+    <insert id="insertAlarm" parameterType="Alarm">
+        insert into alarm (alarmRuleId,alarmRuleVersion,object,level,content,occurTime
+        )values(#{a.alarmRuleId},#{a.alarmRuleVersion},#{a.object},#{a.level},#{a.content},sysdate())
     </insert>
 
-    <update id="changeAlarmStatus" parameterType="AlarmE">
+    <update id="changeAlarmStatus" parameterType="Alarm">
         update alarm
         <set>
-            <if test='a.status == "1"'>acknowledge_time = sysdate(),status = #{a.status}</if>
-            <if test='a.status == "2"'>clear_time = sysdate(),status = #{a.status}</if>
-            <if test='a.status == "3"'>colse_time = sysdate(),status = #{a.status}</if>
+            <if test='a.status == "1"'>acknowledgeTime = sysdate(),status = #{a.status}</if>
+            <if test='a.status == "2"'>clearTime = sysdate(),status = #{a.status}</if>
+            <if test='a.status == "3"'>closeTime = sysdate(),status = #{a.status}</if>
         </set>
-        where alarm_id = #{a.id}
+        where id = #{a.id}
     </update>
 
     <delete id="deleteAlarmById" parameterType="Long">
-        delete from alarm where alarm_id = #{aid}
+        delete from alarm where id = #{aid}
     </delete>
 
 </mapper>

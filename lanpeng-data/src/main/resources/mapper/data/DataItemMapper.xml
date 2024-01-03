@@ -4,74 +4,76 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lanpeng.data.mapper.DataItemMapper">
 
-    <resultMap type="DataItemE" id="DataItemEResult">
-        <id     property="id"           column="dataitem_id"  />
-        <result property="code"         column="dataitem_code"/>
-        <result property="name"         column="dataitem_name"/>
-        <result property="type"         column="dataitem_type"/>
-        <result property="displayed"    column="dataitem_displayed"/>
-        <result property="description"  column="dataitem_description"/>
-        <result property="delFlag"      column="del_flag"     />
-        <result property="createBy"     column="create_by"    />
-        <result property="createTime"   column="create_time"  />
-        <result property="updateBy"     column="update_by"    />
-        <result property="updateTime"   column="update_time"  />
-        <result property="remark"       column="remark"       />
-        <association property="module"  javaType="ModuleE"   resultMap="ModuleEResult"/>
+    <resultMap type="DataItem" id="DataItemResult">
+        <id     property="id"             column="id"  />
+        <result property="code"           column="code"/>
+        <result property="dataName"       column="dataName"/>
+        <result property="dataType"       column="dataType"/>
+        <result property="dataPrecision"  column="dataPrecision"/>
+        <result property="unit"           column="unit"/>
+        <result property="nodeType"       column="nodeType"/>
+        <result property="nodeId"         column="nodeId"/>
+        <result property="mappingField"   column="mappingField"/>
+        <result property="store_flag"     column="store_flag"/>
+        <result property="transfer_flag"  column="transfer_flag"/>
+        <result property="display_flag"   column="display_flag"/>
+        <result property="control_flag"   column="control_flag"/>
+        <result property="alarm_flag"     column="alarm_flag"/>
+        <result property="delFlag"        column="del_flag"     />
+        <result property="createBy"       column="create_by"    />
+        <result property="createTime"     column="create_time"  />
+        <result property="updateBy"       column="update_by"    />
+        <result property="updateTime"     column="update_time"  />
+        <result property="remark"         column="remark"       />
     </resultMap>
 
-    <resultMap type="ModuleE" id="ModuleEResult">
-        <id     property="id"             column="module_id"/>
-        <result property="name"           column="module_name"/>
-    </resultMap>
-
-    <select id="selectDataItemList" resultMap="DataItemEResult">
-        select d.dataitem_id, d.dataitem_code, d.dataitem_name, d.dataitem_type, d.dataitem_displayed, d.dataitem_description,
-               d.del_flag, d.create_by, d.create_time, d.update_by, d.update_time, d.remark,
-               m.module_id,m.module_name
+    <select id="selectDataItemList" resultMap="DataItemResult">
+        select d.id, d.code, d.dataName, d.dataType, d.dataPrecision, d.unit,d.nodeType,d.nodeId,d.mappingField,
+               d.store_flag,d.transfer_flag,d.display_flag,d.control_flag,d.alarm_flag,
+               d.del_flag, d.create_by, d.create_time, d.update_by, d.update_time, d.remark
         from dataitem d
-                 left join module m on d.dataitem_moduleid = m.module_id
         where d.del_flag = '0'
     </select>
 
-    <select id="selectDataItemById" parameterType="Long" resultMap="DataItemEResult">
-        select d.dataitem_id, d.dataitem_code, d.dataitem_name, d.dataitem_type, d.dataitem_displayed, d.dataitem_description,
-               d.del_flag, d.create_by, d.create_time, d.update_by, d.update_time, d.remark,
-               m.module_id,m.module_name
+    <select id="selectDataItemById" parameterType="Long" resultMap="DataItemResult">
+        select d.id, d.code, d.dataName, d.dataType, d.dataPrecision, d.unit,d.nodeType,d.nodeId,d.mappingField,
+               d.store_flag,d.transfer_flag,d.display_flag,d.control_flag,d.alarm_flag,
+               d.del_flag, d.create_by, d.create_time, d.update_by, d.update_time, d.remark
         from dataitem d
-                 left join module m on d.dataitem_moduleid = m.module_id
-        where d.dataitem_id = #{diid} and d.del_flag = '0'
+        where d.id = #{diid} and d.del_flag = '0'
     </select>
 
-    <insert id="insertDataItem" parameterType="DataItemE">
-        insert into DataItem(dataitem_moduleid,dataitem_code,dataitem_name,dataitem_type,dataitem_displayed,dataitem_description,
+    <insert id="insertDataItem" parameterType="DataItem">
+        insert into DataItem(code,dataName,dataType,dataPrecision,unit,nodeType,nodeId,mappingField,
                              <if test="di.createBy != null and di.createBy != ''">create_by,</if>
                              <if test="di.remark != null and di.remark != ''">remark,</if>
                              create_time)
-        values(#{di.module.id},#{di.code},#{di.name},#{di.type},#{di.displayed},#{di.description},
+        values(#{di.code},#{di.dataName},#{di.dataType},#{di.dataPrecision},#{di.unit},#{di.nodeType},#{di.nodeId},#{di.mappingField},
                <if test="di.createBy != null and di.createBy != ''">#{di.createBy},</if>
                <if test="di.remark != null and di.remark != ''">#{di.remark},</if>
                sysdate())
     </insert>
 
-    <update id="updateDataItem" parameterType="DataItemE">
+    <update id="updateDataItem" parameterType="DataItem">
         update dataitem
         <set>
-            dataitem_moduleid = #{di.module.id},
-            dataitem_code = #{di.code},
-            dataitem_name = #{di.name},
-            dataitem_type = #{di.type},
-            dataitem_displayed = #{di.displayed},
-            dataitem_description = #{di.description},
+            code = #{di.code},
+            dataName = #{di.dataName},
+            dataType = #{di.dataType},
+            dataPrecision = #{di.dataPrecision},
+            unit = #{di.unit},
+            nodeType = #{di.nodeType},
+            nodeId = #{di.nodeId},
+            mappingField = #{di.mappingField},
             <if test="di.updateBy != null and di.updateBy != ''">update_by = #{di.updateBy},</if>
             <if test="di.remark != null">remark = #{di.remark},</if>
             update_time = sysdate()
         </set>
-        where dataitem_id = #{di.id}
+        where id = #{di.id}
     </update>
 
     <delete id="deleteDataItemById" parameterType="Long">
-        update dataitem set del_flag = '2' where dataitem_id = #{diid}
+        update dataitem set del_flag = '2' where id = #{diid}
     </delete>
 
 </mapper>

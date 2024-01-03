@@ -1,7 +1,7 @@
 package com.lanpeng.data.mapper;
 
-import com.lanpeng.data.domain.AlarmConditionE;
-import com.lanpeng.data.domain.AlarmE;
+import com.lanpeng.data.domain.AlarmCondition;
+import com.lanpeng.data.domain.Alarm;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,21 +20,21 @@ public interface AlarmMapper
      *
      * @return 告警集合
      */
-    public List<AlarmE> selectAlarmList(@Param("ac")AlarmConditionE alarmCondition);
+    public List<Alarm> selectAlarmList(@Param("ac") AlarmCondition alarmCondition);
 
     /**
      * 插入一条告警
      * @param alarm 告警
      * @return 结果
      */
-    public int insertAlarm(@Param("a")AlarmE alarm);
+    public int insertAlarm(@Param("a") Alarm alarm);
 
     /**
      * 处理一条告警（其实就是修改它的状态）
      * @param alarm 告警
      * @return 结果
      */
-    public int changeAlarmStatus(@Param("a")AlarmE alarm);
+    public int changeAlarmStatus(@Param("a") Alarm alarm);
 
     /**
      * 按照告警编号删除一条告警
