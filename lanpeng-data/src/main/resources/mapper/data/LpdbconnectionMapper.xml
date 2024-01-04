@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanpeng.data.mapper.LpdbconnectionMapper">
+    
+    <resultMap type="Lpdbconnection" id="LpdbconnectionResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="dbConnectionTypeId"    column="dbctid"    />
+        <result property="dbConnectionTypeName"    column="dbctname"    />
+        <result property="serverName"    column="serverName"    />
+        <result property="serverPort"    column="serverPort"    />
+        <result property="databaseName"    column="databaseName"    />
+        <result property="userName"    column="userName"    />
+        <result property="userPassword"    column="userPassword"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectLpdbconnectionVo">
+        select id, name, dbConnectionTypeId, serverName, serverPort, databaseName, userName, userPassword, del_flag, create_by, create_time, update_by, update_time, remark from lpdbconnection
+    </sql>
+
+    <select id="selectLpdbconnectionList" parameterType="Lpdbconnection" resultMap="LpdbconnectionResult">
+        select dbc.id, dbc.name, dbc.dbConnectionTypeId, dbc.serverName, dbc.serverPort, dbc.databaseName, dbc.userName, dbc.userPassword, dbc.del_flag, dbc.create_by, dbc.create_time, dbc.update_by, dbc.update_time, dbc.remark,
+               dbct.id as dbctid,dbct.name as dbctname
+        from lpdbconnection dbc
+            left join lpdbconnectiontype dbct on dbct.id = dbConnectionTypeId
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="dbConnectionTypeId != null "> and dbConnectionTypeId = #{dbConnectionTypeId}</if>
+            <if test="serverName != null  and serverName != ''"> and serverName like concat('%', #{serverName}, '%')</if>
+            <if test="serverPort != null "> and serverPort = #{serverPort}</if>
+            <if test="databaseName != null  and databaseName != ''"> and databaseName like concat('%', #{databaseName}, '%')</if>
+            <if test="userName != null  and userName != ''"> and userName like concat('%', #{userName}, '%')</if>
+            <if test="userPassword != null  and userPassword != ''"> and userPassword = #{userPassword}</if>
+        </where>
+        order by dbc.id asc
+    </select>
+    
+    <select id="selectLpdbconnectionById" parameterType="Long" resultMap="LpdbconnectionResult">
+        select dbc.id, dbc.name, dbc.dbConnectionTypeId, dbc.serverName, dbc.serverPort, dbc.databaseName, dbc.userName, dbc.userPassword, dbc.del_flag, dbc.create_by, dbc.create_time, dbc.update_by, dbc.update_time, dbc.remark,
+               dbct.id as dbctid,dbct.name as dbctname
+        from lpdbconnection dbc
+                 left join lpdbconnectiontype dbct on dbct.id = dbConnectionTypeId
+        where dbc.id = #{id}
+    </select>
+        
+    <insert id="insertLpdbconnection" parameterType="Lpdbconnection" useGeneratedKeys="true" keyProperty="id">
+        insert into lpdbconnection
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="dbConnectionTypeId != null">dbConnectionTypeId,</if>
+            <if test="serverName != null and serverName != ''">serverName,</if>
+            <if test="serverPort != null">serverPort,</if>
+            <if test="databaseName != null and databaseName != ''">databaseName,</if>
+            <if test="userName != null and userName != ''">userName,</if>
+            <if test="userPassword != null and userPassword != ''">userPassword,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="dbConnectionTypeId != null">#{dbConnectionTypeId},</if>
+            <if test="serverName != null and serverName != ''">#{serverName},</if>
+            <if test="serverPort != null">#{serverPort},</if>
+            <if test="databaseName != null and databaseName != ''">#{databaseName},</if>
+            <if test="userName != null and userName != ''">#{userName},</if>
+            <if test="userPassword != null and userPassword != ''">#{userPassword},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLpdbconnection" parameterType="Lpdbconnection">
+        update lpdbconnection
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="dbConnectionTypeId != null">dbConnectionTypeId = #{dbConnectionTypeId},</if>
+            <if test="serverName != null and serverName != ''">serverName = #{serverName},</if>
+            <if test="serverPort != null">serverPort = #{serverPort},</if>
+            <if test="databaseName != null and databaseName != ''">databaseName = #{databaseName},</if>
+            <if test="userName != null and userName != ''">userName = #{userName},</if>
+            <if test="userPassword != null and userPassword != ''">userPassword = #{userPassword},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteLpdbconnectionById" parameterType="Long">
+        delete from lpdbconnection where id = #{id}
+    </delete>
+
+    <delete id="deleteLpdbconnectionByIds" parameterType="String">
+        delete from lpdbconnection where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
