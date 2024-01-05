@@ -25,8 +25,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select ici.id, ici.intelligentControlId, ici.dataItemId, ici.length, ici.description, ici.interfaceParameter,
                ici.del_flag, ici.create_by, ici.create_time, ici.update_by, ici.update_time, ici.remark,
                ic.name as intelligentControlName,di.dataName as dataItemName
-        from lpintelligentcontrolitem ici
-            left join lpintelligentcontrol ic on ic.id = ici.intelligentControlId
+        from intelligentcontrolitem ici
+            left join intelligentcontrol ic on ic.id = ici.intelligentControlId
             left join dataitem di on di.id = ici.dataItemId
         where ici.intelligentControlId = #{icid}
         order by ici.id asc
@@ -36,14 +36,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select ici.id, ici.intelligentControlId, ici.dataItemId, ici.length, ici.description, ici.interfaceParameter,
                ici.del_flag, ici.create_by, ici.create_time, ici.update_by, ici.update_time, ici.remark,
                ic.name as intelligentControlName,di.dataName as dataItemName
-        from lpintelligentcontrolitem ici
-                 left join lpintelligentcontrol ic on ic.id = ici.intelligentControlId
+        from intelligentcontrolitem ici
+                 left join intelligentcontrol ic on ic.id = ici.intelligentControlId
                  left join dataitem di on di.id = ici.dataItemId
         where ici.id = #{id}
     </select>
         
     <insert id="insertLpintelligentcontrolitem" parameterType="Lpintelligentcontrolitem" useGeneratedKeys="true" keyProperty="id">
-        insert into lpintelligentcontrolitem
+        insert into intelligentcontrolitem
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="intelligentControlId != null">intelligentControlId,</if>
             <if test="dataItemId != null">dataItemId,</if>
@@ -73,7 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
 
     <update id="updateLpintelligentcontrolitem" parameterType="Lpintelligentcontrolitem">
-        update lpintelligentcontrolitem
+        update intelligentcontrolitem
         <trim prefix="SET" suffixOverrides=",">
             <if test="intelligentControlId != null">intelligentControlId = #{intelligentControlId},</if>
             <if test="dataItemId != null">dataItemId = #{dataItemId},</if>
@@ -91,11 +91,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteLpintelligentcontrolitemById" parameterType="Long">
-        delete from lpintelligentcontrolitem where id = #{id}
+        delete from intelligentcontrolitem where id = #{id}
     </delete>
 
     <delete id="deleteLpintelligentcontrolitemByIds" parameterType="String">
-        delete from lpintelligentcontrolitem where id in 
+        delete from intelligentcontrolitem where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

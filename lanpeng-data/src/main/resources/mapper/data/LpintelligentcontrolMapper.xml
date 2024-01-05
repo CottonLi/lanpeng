@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select ic.id, ic.name, ic.moduleInfoId, ic.code, ic.type, ic.description, ic.parameter,
                ic.del_flag, ic.create_by, ic.create_time, ic.update_by, ic.update_time, ic.remark,
                m.name as moduleInfoName
-        from lpintelligentcontrol ic
+        from intelligentcontrol ic
             left join moduleinfo m on m.id = ic.moduleInfoId
         <where>  
             <if test="name != null  and name != ''"> and ic.name like concat('%', #{name}, '%')</if>
@@ -42,13 +42,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select ic.id, ic.name, ic.moduleInfoId, ic.code, ic.type, ic.description, ic.parameter,
                ic.del_flag, ic.create_by, ic.create_time, ic.update_by, ic.update_time, ic.remark,
                m.name as moduleInfoName
-        from lpintelligentcontrol ic
+        from intelligentcontrol ic
                  left join moduleinfo m on m.id = ic.moduleInfoId
         where ic.id = #{id}
     </select>
         
     <insert id="insertLpintelligentcontrol" parameterType="Lpintelligentcontrol" useGeneratedKeys="true" keyProperty="id">
-        insert into lpintelligentcontrol
+        insert into intelligentcontrol
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="name != null and name != ''">name,</if>
             <if test="moduleInfoId != null">moduleInfoId,</if>
@@ -80,7 +80,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
 
     <update id="updateLpintelligentcontrol" parameterType="Lpintelligentcontrol">
-        update lpintelligentcontrol
+        update intelligentcontrol
         <trim prefix="SET" suffixOverrides=",">
             <if test="name != null and name != ''">name = #{name},</if>
             <if test="moduleInfoId != null">moduleInfoId = #{moduleInfoId},</if>
@@ -99,11 +99,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteLpintelligentcontrolById" parameterType="Long">
-        delete from lpintelligentcontrol where id = #{id}
+        delete from intelligentcontrol where id = #{id}
     </delete>
 
     <delete id="deleteLpintelligentcontrolByIds" parameterType="String">
-        delete from lpintelligentcontrol where id in 
+        delete from intelligentcontrol where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
