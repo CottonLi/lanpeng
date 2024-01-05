@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanpeng.data.mapper.LpdataitemMapper">
+    
+    <resultMap type="Lpdataitem" id="LpdataitemResult">
+        <result property="id"    column="id"    />
+        <result property="code"    column="code"    />
+        <result property="dataName"    column="dataName"    />
+        <result property="dataType"    column="dataType"    />
+        <result property="dataPrecision"    column="dataPrecision"    />
+        <result property="unit"    column="unit"    />
+        <result property="nodeType"    column="nodeType"    />
+        <result property="nodeId"    column="nodeId"    />
+        <result property="mappingField"    column="mappingField"    />
+        <result property="storeFlag"    column="store_flag"    />
+        <result property="transferFlag"    column="transfer_flag"    />
+        <result property="displayFlag"    column="display_flag"    />
+        <result property="controlFlag"    column="control_flag"    />
+        <result property="alarmFlag"    column="alarm_flag"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectLpdataitemVo">
+        select id, code, dataName, dataType, dataPrecision, unit, nodeType, nodeId, mappingField,
+               store_flag, transfer_flag, display_flag, control_flag, alarm_flag,
+               del_flag, create_by, create_time, update_by, update_time, remark
+        from dataitem
+    </sql>
+
+    <select id="selectLpdataitemList" parameterType="Lpdataitem" resultMap="LpdataitemResult">
+        <include refid="selectLpdataitemVo"/>
+        <where>  
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="dataName != null  and dataName != ''"> and dataName like concat('%', #{dataName}, '%')</if>
+            <if test="dataType != null "> and dataType = #{dataType}</if>
+            <if test="dataPrecision != null "> and dataPrecision = #{dataPrecision}</if>
+            <if test="unit != null  and unit != ''"> and unit = #{unit}</if>
+            <if test="nodeType != null "> and nodeType = #{nodeType}</if>
+            <if test="nodeId != null "> and nodeId = #{nodeId}</if>
+            <if test="mappingField != null  and mappingField != ''"> and mappingField = #{mappingField}</if>
+            <if test="storeFlag != null  and storeFlag != ''"> and store_flag = #{storeFlag}</if>
+            <if test="transferFlag != null  and transferFlag != ''"> and transfer_flag = #{transferFlag}</if>
+            <if test="displayFlag != null  and displayFlag != ''"> and display_flag = #{displayFlag}</if>
+            <if test="controlFlag != null  and controlFlag != ''"> and control_flag = #{controlFlag}</if>
+            <if test="alarmFlag != null  and alarmFlag != ''"> and alarm_flag = #{alarmFlag}</if>
+        </where>
+    </select>
+    
+    <select id="selectLpdataitemById" parameterType="Long" resultMap="LpdataitemResult">
+        <include refid="selectLpdataitemVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertLpdataitem" parameterType="Lpdataitem" useGeneratedKeys="true" keyProperty="id">
+        insert into dataitem
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null and code != ''">code,</if>
+            <if test="dataName != null and dataName != ''">dataName,</if>
+            <if test="dataType != null">dataType,</if>
+            <if test="dataPrecision != null">dataPrecision,</if>
+            <if test="unit != null">unit,</if>
+            <if test="nodeType != null">nodeType,</if>
+            <if test="nodeId != null">nodeId,</if>
+            <if test="mappingField != null and mappingField != ''">mappingField,</if>
+            <if test="storeFlag != null">store_flag,</if>
+            <if test="transferFlag != null">transfer_flag,</if>
+            <if test="displayFlag != null">display_flag,</if>
+            <if test="controlFlag != null">control_flag,</if>
+            <if test="alarmFlag != null">alarm_flag,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null and code != ''">#{code},</if>
+            <if test="dataName != null and dataName != ''">#{dataName},</if>
+            <if test="dataType != null">#{dataType},</if>
+            <if test="dataPrecision != null">#{dataPrecision},</if>
+            <if test="unit != null">#{unit},</if>
+            <if test="nodeType != null">#{nodeType},</if>
+            <if test="nodeId != null">#{nodeId},</if>
+            <if test="mappingField != null and mappingField != ''">#{mappingField},</if>
+            <if test="storeFlag != null">#{storeFlag},</if>
+            <if test="transferFlag != null">#{transferFlag},</if>
+            <if test="displayFlag != null">#{displayFlag},</if>
+            <if test="controlFlag != null">#{controlFlag},</if>
+            <if test="alarmFlag != null">#{alarmFlag},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLpdataitem" parameterType="Lpdataitem">
+        update dataitem
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="code != null and code != ''">code = #{code},</if>
+            <if test="dataName != null and dataName != ''">dataName = #{dataName},</if>
+            <if test="dataType != null">dataType = #{dataType},</if>
+            <if test="dataPrecision != null">dataPrecision = #{dataPrecision},</if>
+            <if test="unit != null">unit = #{unit},</if>
+            <if test="nodeType != null">nodeType = #{nodeType},</if>
+            <if test="nodeId != null">nodeId = #{nodeId},</if>
+            <if test="mappingField != null and mappingField != ''">mappingField = #{mappingField},</if>
+            <if test="storeFlag != null">store_flag = #{storeFlag},</if>
+            <if test="transferFlag != null">transfer_flag = #{transferFlag},</if>
+            <if test="displayFlag != null">display_flag = #{displayFlag},</if>
+            <if test="controlFlag != null">control_flag = #{controlFlag},</if>
+            <if test="alarmFlag != null">alarm_flag = #{alarmFlag},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteLpdataitemById" parameterType="Long">
+        delete from dataitem where id = #{id}
+    </delete>
+
+    <delete id="deleteLpdataitemByIds" parameterType="String">
+        delete from dataitem where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

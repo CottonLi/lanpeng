@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanpeng.data.mapper.LpdatastorageitemMapper">
+    
+    <resultMap type="Lpdatastorageitem" id="LpdatastorageitemResult">
+        <result property="id"    column="id"    />
+        <result property="dataStorageId"    column="dataStorageId"    />
+        <result property="dataStorageName"    column="dataStorageName"    />
+        <result property="dataItemId"    column="dataItemId"    />
+        <result property="dataItemName"    column="dataItemName"    />
+        <result property="tableName"    column="tableName"    />
+        <result property="columnName"    column="columnName"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <select id="selectLpdatastorageitemList" parameterType="Long" resultMap="LpdatastorageitemResult">
+        select dsi.id, dsi.dataStorageId, dsi.dataItemId, dsi.tableName, dsi.columnName,
+               dsi.del_flag, dsi.create_by, dsi.create_time, dsi.update_by, dsi.update_time, dsi.remark,
+               di.dataName as dataItemName,ds.name as dataStorageName
+        from datastorageitem dsi
+            left join dataitem di on di.id = dsi.dataItemId
+            left join datastorage ds on ds.id = dsi.dataStorageId
+        where dsi.dataStorageId = #{dsid}
+        order by dsi.id asc
+    </select>
+    
+    <select id="selectLpdatastorageitemById" parameterType="Long" resultMap="LpdatastorageitemResult">
+        select dsi.id, dsi.dataStorageId, dsi.dataItemId, dsi.tableName, dsi.columnName,
+               dsi.del_flag, dsi.create_by, dsi.create_time, dsi.update_by, dsi.update_time, dsi.remark,
+               di.dataName as dataItemName,ds.name as dataStorageName
+        from datastorageitem dsi
+                 left join dataitem di on di.id = dsi.dataItemId
+                 left join datastorage ds on ds.id = dsi.dataStorageId
+        where dsi.id = #{id}
+    </select>
+        
+    <insert id="insertLpdatastorageitem" parameterType="Lpdatastorageitem" useGeneratedKeys="true" keyProperty="id">
+        insert into datastorageitem
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dataStorageId != null">dataStorageId,</if>
+            <if test="dataItemId != null">dataItemId,</if>
+            <if test="tableName != null and tableName != ''">tableName,</if>
+            <if test="columnName != null and columnName != ''">columnName,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dataStorageId != null">#{dataStorageId},</if>
+            <if test="dataItemId != null">#{dataItemId},</if>
+            <if test="tableName != null and tableName != ''">#{tableName},</if>
+            <if test="columnName != null and columnName != ''">#{columnName},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLpdatastorageitem" parameterType="Lpdatastorageitem">
+        update datastorageitem
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="dataStorageId != null">dataStorageId = #{dataStorageId},</if>
+            <if test="dataItemId != null">dataItemId = #{dataItemId},</if>
+            <if test="tableName != null and tableName != ''">tableName = #{tableName},</if>
+            <if test="columnName != null and columnName != ''">columnName = #{columnName},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteLpdatastorageitemById" parameterType="Long">
+        delete from datastorageitem where id = #{id}
+    </delete>
+
+    <delete id="deleteLpdatastorageitemByIds" parameterType="String">
+        delete from datastorageitem where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
