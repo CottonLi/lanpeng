@@ -23,17 +23,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectLpdbconnectionVo">
-        select id, name, dbConnectionTypeId, serverName, serverPort, databaseName, userName, userPassword, del_flag, create_by, create_time, update_by, update_time, remark from lpdbconnection
+        select id, name, dbConnectionTypeId, serverName, serverPort, databaseName, userName, userPassword,
+               del_flag, create_by, create_time, update_by, update_time, remark
+        from dbconnection
     </sql>
 
     <select id="selectLpdbconnectionList" parameterType="Lpdbconnection" resultMap="LpdbconnectionResult">
         select dbc.id, dbc.name, dbc.dbConnectionTypeId, dbc.serverName, dbc.serverPort, dbc.databaseName, dbc.userName, dbc.userPassword, dbc.del_flag, dbc.create_by, dbc.create_time, dbc.update_by, dbc.update_time, dbc.remark,
                dbct.id as dbctid,dbct.name as dbctname
-        from lpdbconnection dbc
-            left join lpdbconnectiontype dbct on dbct.id = dbConnectionTypeId
+        from dbconnection dbc
+            left join dbconnectiontype dbct on dbct.id = dbConnectionTypeId
         <where>  
             <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
-            <if test="dbConnectionTypeId != null "> and dbConnectionTypeId = #{dbConnectionTypeId}</if>
+            <if test="dbConnectionTypeName != null  and dbConnectionTypeName != ''"> and dbct.name like concat('%', #{dbConnectionTypeName}, '%')</if>
             <if test="serverName != null  and serverName != ''"> and serverName like concat('%', #{serverName}, '%')</if>
             <if test="serverPort != null "> and serverPort = #{serverPort}</if>
             <if test="databaseName != null  and databaseName != ''"> and databaseName like concat('%', #{databaseName}, '%')</if>
@@ -46,13 +48,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectLpdbconnectionById" parameterType="Long" resultMap="LpdbconnectionResult">
         select dbc.id, dbc.name, dbc.dbConnectionTypeId, dbc.serverName, dbc.serverPort, dbc.databaseName, dbc.userName, dbc.userPassword, dbc.del_flag, dbc.create_by, dbc.create_time, dbc.update_by, dbc.update_time, dbc.remark,
                dbct.id as dbctid,dbct.name as dbctname
-        from lpdbconnection dbc
-                 left join lpdbconnectiontype dbct on dbct.id = dbConnectionTypeId
+        from dbconnection dbc
+                 left join dbconnectiontype dbct on dbct.id = dbConnectionTypeId
         where dbc.id = #{id}
     </select>
         
     <insert id="insertLpdbconnection" parameterType="Lpdbconnection" useGeneratedKeys="true" keyProperty="id">
-        insert into lpdbconnection
+        insert into dbconnection
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="name != null and name != ''">name,</if>
             <if test="dbConnectionTypeId != null">dbConnectionTypeId,</if>
@@ -86,7 +88,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
 
     <update id="updateLpdbconnection" parameterType="Lpdbconnection">
-        update lpdbconnection
+        update dbconnection
         <trim prefix="SET" suffixOverrides=",">
             <if test="name != null and name != ''">name = #{name},</if>
             <if test="dbConnectionTypeId != null">dbConnectionTypeId = #{dbConnectionTypeId},</if>
@@ -106,11 +108,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteLpdbconnectionById" parameterType="Long">
-        delete from lpdbconnection where id = #{id}
+        delete from dbconnection where id = #{id}
     </delete>
 
     <delete id="deleteLpdbconnectionByIds" parameterType="String">
-        delete from lpdbconnection where id in 
+        delete from dbconnection where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

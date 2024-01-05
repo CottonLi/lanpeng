@@ -87,6 +87,20 @@ export const constantRoutes = [
         meta: { title: '个人中心', icon: 'user' }
       }
     ]
+  },
+  {
+    path: '/lpds/lpdsitem',
+    component: Layout,
+    hidden: true,
+    children:
+      [
+        {
+          path: '',
+          component: () => import('@/views/lpdatastorage/lpdatastorageitem/index'),
+          name: 'ConfigDataStorage',
+          meta: { title: '数据存储详细配置' }
+        }
+      ]
   }
 ]
 

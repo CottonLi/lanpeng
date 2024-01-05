@@ -9,10 +9,10 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="类型编号" prop="dbConnectionTypeId">
+      <el-form-item label="类型名称" prop="dbConnectionTypeName">
         <el-input
-          v-model="queryParams.dbConnectionTypeId"
-          placeholder="类型编号"
+          v-model="queryParams.dbConnectionTypeName"
+          placeholder="类型名称"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -153,8 +153,10 @@
         <el-form-item label="名称" prop="name">
           <el-input v-model="form.name" placeholder="请输入数据库连接名称" />
         </el-form-item>
-        <el-form-item label="类型编号" prop="dbConnectionTypeId">
-          <el-input v-model="form.dbConnectionTypeId" placeholder="请输入数据库连接类型--对应类型编号" />
+        <el-form-item label="类型选择" prop="dbConnectionTypeId">
+          <el-select v-model="form.dbConnectionTypeId">
+            <el-option v-for="(item, index) in lpdbconnectionTypeList" :key="index" :label="item.name" :value="item.id">{{ item.name }}</el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="服务器名称" prop="serverName">
           <el-input v-model="form.serverName" placeholder="请输入数据库连接---服务器名称" />
@@ -182,6 +184,7 @@
 
 <script>
 import { listLpdbconnection, getLpdbconnection, delLpdbconnection, addLpdbconnection, updateLpdbconnection } from "@/api/lpdatastorage/lpdbconnection";
+import { listLpdbconnectiontype } from "@/api/lpdatastorage/lpdbconnectiontype";
 
 export default {
   name: "Lpdbconnection",
@@ -201,6 +204,7 @@ export default {
       total: 0,
       // lpdbconnection表格数据
       lpdbconnectionList: [],
+      lpdbconnectionTypeList: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
@@ -211,6 +215,7 @@ export default {
         pageSize: 10,
         name: null,
         dbConnectionTypeId: null,
+        dbConnectionTypeName: null,
         serverName: null,
         serverPort: null,
         databaseName: null,
@@ -225,22 +230,22 @@ export default {
           { required: true, message: "数据库连接名称不能为空", trigger: "blur" }
         ],
         dbConnectionTypeId: [
-          { required: true, message: "数据库连接类型--对应类型编号不能为空", trigger: "blur" }
+          { required: true, message: "数据库连接类型不能为空", trigger: "blur" }
         ],
         serverName: [
-          { required: true, message: "数据库连接---服务器名称不能为空", trigger: "blur" }
+          { required: true, message: "服务器名称不能为空", trigger: "blur" }
         ],
         serverPort: [
-          { required: true, message: "数据库连接---服务器端口号不能为空", trigger: "blur" }
+          { required: true, message: "服务器端口号不能为空", trigger: "blur" }
         ],
         databaseName: [
-          { required: true, message: "数据库连接---数据库名称不能为空", trigger: "blur" }
+          { required: true, message: "数据库名称不能为空", trigger: "blur" }
         ],
         userName: [
-          { required: true, message: "数据库连接---用户名不能为空", trigger: "blur" }
+          { required: true, message: "用户名不能为空", trigger: "blur" }
         ],
         userPassword: [
-          { required: true, message: "数据库连接---密码不能为空", trigger: "blur" }
+          { required: true, message: "密码不能为空", trigger: "blur" }
         ],
       }
     };
@@ -256,6 +261,9 @@ export default {
         this.lpdbconnectionList = response.rows;
         this.total = response.total;
         this.loading = false;
+      });
+      listLpdbconnectiontype().then(response => {
+        this.lpdbconnectionTypeList = response.rows;
       });
     },
     // 取消按钮
