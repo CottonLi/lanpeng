@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanpeng.data.mapper.LpintelligentcontrolMapper">
+    
+    <resultMap type="Lpintelligentcontrol" id="LpintelligentcontrolResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="moduleInfoId"    column="moduleInfoId"    />
+        <result property="moduleInfoName"    column="moduleInfoName"    />
+        <result property="code"    column="code"    />
+        <result property="type"    column="type"    />
+        <result property="description"    column="description"    />
+        <result property="parameter"    column="parameter"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <select id="selectLpintelligentcontrolList" parameterType="Lpintelligentcontrol" resultMap="LpintelligentcontrolResult">
+        select ic.id, ic.name, ic.moduleInfoId, ic.code, ic.type, ic.description, ic.parameter,
+               ic.del_flag, ic.create_by, ic.create_time, ic.update_by, ic.update_time, ic.remark,
+               m.name as moduleInfoName
+        from lpintelligentcontrol ic
+            left join moduleinfo m on m.id = ic.moduleInfoId
+        <where>  
+            <if test="name != null  and name != ''"> and ic.name like concat('%', #{name}, '%')</if>
+            <if test="moduleInfoName != null  and moduleInfoName != ''"> and m.name like concat('%', #{moduleInfoName}, '%')</if>
+            <if test="code != null  and code != ''"> and ic.code like concat('%', #{code}, '%')</if>
+            <if test="type != null  and type != ''"> and ic.type like concat('%', #{type}, '%')</if>
+            <if test="description != null  and description != ''"> and ic.description like concat('%', #{description}, '%')</if>
+            <if test="parameter != null  and parameter != ''"> and parameter = #{parameter}</if>
+        </where>
+        order by ic.id asc
+    </select>
+    
+    <select id="selectLpintelligentcontrolById" parameterType="Long" resultMap="LpintelligentcontrolResult">
+        select ic.id, ic.name, ic.moduleInfoId, ic.code, ic.type, ic.description, ic.parameter,
+               ic.del_flag, ic.create_by, ic.create_time, ic.update_by, ic.update_time, ic.remark,
+               m.name as moduleInfoName
+        from lpintelligentcontrol ic
+                 left join moduleinfo m on m.id = ic.moduleInfoId
+        where ic.id = #{id}
+    </select>
+        
+    <insert id="insertLpintelligentcontrol" parameterType="Lpintelligentcontrol" useGeneratedKeys="true" keyProperty="id">
+        insert into lpintelligentcontrol
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="moduleInfoId != null">moduleInfoId,</if>
+            <if test="code != null and code != ''">code,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="description != null and description != ''">description,</if>
+            <if test="parameter != null and parameter != ''">parameter,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="moduleInfoId != null">#{moduleInfoId},</if>
+            <if test="code != null and code != ''">#{code},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="description != null and description != ''">#{description},</if>
+            <if test="parameter != null and parameter != ''">#{parameter},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLpintelligentcontrol" parameterType="Lpintelligentcontrol">
+        update lpintelligentcontrol
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="moduleInfoId != null">moduleInfoId = #{moduleInfoId},</if>
+            <if test="code != null and code != ''">code = #{code},</if>
+            <if test="type != null and type != ''">type = #{type},</if>
+            <if test="description != null and description != ''">description = #{description},</if>
+            <if test="parameter != null and parameter != ''">parameter = #{parameter},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteLpintelligentcontrolById" parameterType="Long">
+        delete from lpintelligentcontrol where id = #{id}
+    </delete>
+
+    <delete id="deleteLpintelligentcontrolByIds" parameterType="String">
+        delete from lpintelligentcontrol where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

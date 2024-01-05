@@ -101,6 +101,20 @@ export const constantRoutes = [
           meta: { title: '数据存储详细配置' }
         }
       ]
+  },
+  {
+    path: '/lpic/lpicitem',
+    component: Layout,
+    hidden: true,
+    children:
+      [
+        {
+          path: '',
+          component: () => import('@/views/lpintelligentcontrol/lpintelligentcontrolitem/index'),
+          name: 'ConfigIntelligentControl',
+          meta: { title: '智能控制详细配置' }
+        }
+      ]
   }
 ]
 

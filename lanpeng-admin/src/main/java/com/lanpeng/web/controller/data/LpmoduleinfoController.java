@@ -1,4 +1,4 @@
-package com.lanpeng.data.controller;
+package com.lanpeng.web.controller.data;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanpeng.data.mapper.LpintelligentcontrolitemMapper">
+    
+    <resultMap type="Lpintelligentcontrolitem" id="LpintelligentcontrolitemResult">
+        <result property="id"    column="id"    />
+        <result property="intelligentControlId"    column="intelligentControlId"    />
+        <result property="intelligentControlName"    column="intelligentControlName"    />
+        <result property="dataItemId"    column="dataItemId"    />
+        <result property="dataItemName"    column="dataItemName"    />
+        <result property="length"    column="length"    />
+        <result property="description"    column="description"    />
+        <result property="interfaceParameter"    column="interfaceParameter"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <select id="selectLpintelligentcontrolitemList" parameterType="Long" resultMap="LpintelligentcontrolitemResult">
+        select ici.id, ici.intelligentControlId, ici.dataItemId, ici.length, ici.description, ici.interfaceParameter,
+               ici.del_flag, ici.create_by, ici.create_time, ici.update_by, ici.update_time, ici.remark,
+               ic.name as intelligentControlName,di.dataName as dataItemName
+        from lpintelligentcontrolitem ici
+            left join lpintelligentcontrol ic on ic.id = ici.intelligentControlId
+            left join dataitem di on di.id = ici.dataItemId
+        where ici.intelligentControlId = #{icid}
+        order by ici.id asc
+    </select>
+    
+    <select id="selectLpintelligentcontrolitemById" parameterType="Long" resultMap="LpintelligentcontrolitemResult">
+        select ici.id, ici.intelligentControlId, ici.dataItemId, ici.length, ici.description, ici.interfaceParameter,
+               ici.del_flag, ici.create_by, ici.create_time, ici.update_by, ici.update_time, ici.remark,
+               ic.name as intelligentControlName,di.dataName as dataItemName
+        from lpintelligentcontrolitem ici
+                 left join lpintelligentcontrol ic on ic.id = ici.intelligentControlId
+                 left join dataitem di on di.id = ici.dataItemId
+        where ici.id = #{id}
+    </select>
+        
+    <insert id="insertLpintelligentcontrolitem" parameterType="Lpintelligentcontrolitem" useGeneratedKeys="true" keyProperty="id">
+        insert into lpintelligentcontrolitem
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="intelligentControlId != null">intelligentControlId,</if>
+            <if test="dataItemId != null">dataItemId,</if>
+            <if test="length != null">length,</if>
+            <if test="description != null and description != ''">description,</if>
+            <if test="interfaceParameter != null and interfaceParameter != ''">interfaceParameter,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="intelligentControlId != null">#{intelligentControlId},</if>
+            <if test="dataItemId != null">#{dataItemId},</if>
+            <if test="length != null">#{length},</if>
+            <if test="description != null and description != ''">#{description},</if>
+            <if test="interfaceParameter != null and interfaceParameter != ''">#{interfaceParameter},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLpintelligentcontrolitem" parameterType="Lpintelligentcontrolitem">
+        update lpintelligentcontrolitem
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="intelligentControlId != null">intelligentControlId = #{intelligentControlId},</if>
+            <if test="dataItemId != null">dataItemId = #{dataItemId},</if>
+            <if test="length != null">length = #{length},</if>
+            <if test="description != null and description != ''">description = #{description},</if>
+            <if test="interfaceParameter != null and interfaceParameter != ''">interfaceParameter = #{interfaceParameter},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteLpintelligentcontrolitemById" parameterType="Long">
+        delete from lpintelligentcontrolitem where id = #{id}
+    </delete>
+
+    <delete id="deleteLpintelligentcontrolitemByIds" parameterType="String">
+        delete from lpintelligentcontrolitem where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
